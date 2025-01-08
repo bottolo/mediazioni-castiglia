@@ -1,20 +1,13 @@
 import {createFileRoute} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-	component: Index,
+    component: Index,
 });
 
 function Index() {
-
-
-
-	return (
-		<div className="h-full flex flex-col">
-			<div className="px-6 py-4 shrink-0">
-				<h1 className="text-2xl font-bold">Mediazioni is coming to get ya!</h1>
-			</div>
-		</div>
-	);
+    return (
+        <div>
+            <h1>Mediazioni is coming to get ya!</h1>
+        </div>
+    );
 }
-
-export default Index;

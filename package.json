@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@flydotio/dockerfile": "^0.6.0",
     "@types/bun": "latest"
   },
   "peerDependencies": {
@@ -15,9 +16,7 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.4.1",
-    "@types/pg": "^8.11.10",
     "hono": "^4.6.12",
-    "pg": "^8.13.1",
     "resend": "^4.0.1",
     "zod": "^3.23.8"
   },
