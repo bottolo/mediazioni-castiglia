@@ -1,0 +1,15 @@
+:root {
+	/* Main colors */
+	--primary-color: #3b82f6;
+	--primary-color-dark: #2563eb;
+	--secondary-color: #6b7280;
+	--secondary-color-dark: #4b5563;
+	--danger-color: #ef4444;
+	--danger-color-dark: #dc2626;
+
+	/* Text colors */
+	--text-color: #374151;
+
+	/* Grayscale */
+	--gray-100: #f3f4f6;
+}
