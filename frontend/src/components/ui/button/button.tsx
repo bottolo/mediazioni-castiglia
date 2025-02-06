@@ -27,6 +27,7 @@ import styles from "./button.module.css";
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
 		{
+			// questi sono i default se non vengono passati i rispettivi parametri
 			variant = "primary",
 			size = "md",
 			isLoading = false,
@@ -36,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			disabled = false,
 			className = "",
 			children,
-			type = "button",
+			type = "button", // serve, non sei un coglione, è typescript che ti obbliga
 			...props
 		},
 		ref,
@@ -50,7 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			disabled && styles["button--disabled"],
 			className,
 		]
-			.filter(Boolean)
+			.filter(Boolean)  // filtra solo per le classi che hanno un valore
 			.join(" ");
 
 		return (

@@ -6,7 +6,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
 	return (
-		<div>
+		<div class="mainPage">
 			<nav>
 				<Link to="/">Home</Link>
 				<Link to="/about">About</Link>
