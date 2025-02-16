@@ -1,10 +1,8 @@
+import { Card } from "@/components/Card.tsx";
+import { Hero } from "@/components/Hero.tsx";
+import { Map } from "@/components/Map.tsx";
+import { Section } from "@/components/Section.tsx";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-	ContactIcon,
-	HandCoinsIcon,
-	HouseIcon,
-	ShieldQuestionIcon,
-} from "lucide-react";
 
 export const Route = createFileRoute("/")({
 	component: Index,
@@ -13,76 +11,101 @@ export const Route = createFileRoute("/")({
 function Index() {
 	return (
 		<>
-			<section id={"hero"} className="flex flex-row gap-8">
-				<div className="flex flex-col gap-1 max-w-[50%] pt-4">
-					<h1 className="text-4xl font-bold">Gaetano Castiglia</h1>
-					<h2 className="text-2xl pb-4">Mediatore creditizio</h2>
-					<p className="text-md">
-						Lavoro al tuo fianco per farti risparmiare tempo, semplificare la
-						raccolta di documenti e presentarti i prodotti più convenienti.
-					</p>
-				</div>
-				<div className="flex-1 max-w-[50%]">
-					<img
-						alt="test"
-						src="https://picsum.photos/1000/1000"
-						className="w-full h-auto"
-					/>
-				</div>
-			</section>
-			<section id="services" className="flex flex-col gap-4 ">
-				<div className="flex flex-col gap-1 max-w-[50%] pt-4">
-					<h1 className="text-3xl font-bold">Servizi</h1>
-					<h2 className="text-md pb-4">Cosa offro ai miei clienti</h2>
-				</div>
+			<Hero
+				title={"Gaetano Castiglia"}
+				subtitle={"Mediatore Creditizio"}
+				description={
+					"Lavoro al tuo fianco per farti risparmiare tempo, semplificare la raccolta di documenti e presentarti i prodotti più convenienti."
+				}
+				email={"gaetano.castiglia@24max.it"}
+				phone={"+39 349 0874432"}
+				image={"https://picsum.photos/1000/1000"}
+			/>
+			<Section
+				id={"services"}
+				title={"Servizi"}
+				subtitle={"Cosa offro ai miei clienti"}
+				childrenStyle={
+					"grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-[1rem] mx:px-0"
+				}
+			>
+				<Card
+					icon={
+						<svg
+							width="64"
+							height="64"
+							viewBox="0 0 64 64"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M53.3333 53.3333C53.3333 54.0406 53.0524 54.7188 52.5523 55.2189C52.0522 55.719 51.3739 56 50.6667 56H13.3333C12.6261 56 11.9478 55.719 11.4477 55.2189C10.9476 54.7188 10.6667 54.0406 10.6667 53.3333V29.3333H2.66667L30.2053 4.29866C30.6963 3.85193 31.3362 3.60437 32 3.60437C32.6638 3.60437 33.3037 3.85193 33.7947 4.29866L61.3333 29.3333H53.3333V53.3333ZM48 50.6667V24.4187L32 9.87466L16 24.4187V50.6667H48ZM32 45.3333L23.0427 36.376C21.9174 35.2508 21.2853 33.7246 21.2853 32.1333C21.2853 30.542 21.9174 29.0159 23.0427 27.8907C24.1679 26.7654 25.694 26.1333 27.2853 26.1333C28.8766 26.1333 30.4028 26.7654 31.528 27.8907L32 28.3627L32.472 27.8907C33.0292 27.3335 33.6906 26.8915 34.4186 26.59C35.1465 26.2885 35.9267 26.1333 36.7147 26.1333C37.5026 26.1333 38.2828 26.2885 39.0108 26.59C39.7387 26.8915 40.4002 27.3335 40.9573 27.8907C41.5145 28.4478 41.9565 29.1092 42.258 29.8372C42.5595 30.5652 42.7147 31.3454 42.7147 32.1333C42.7147 32.9213 42.5595 33.7015 42.258 34.4294C41.9565 35.1574 41.5145 35.8188 40.9573 36.376L32 45.3333Z"
+								fill="#A8A8A8"
+							/>
+						</svg>
+					}
+					title={"Mutuo"}
+					description={
+						"La soluzione creditizia per ogni progetto immobiliare. Mutuo acquisto, mutuo per ristrutturazione, mutuo green, mutuo giovani under 36, surroghe e altri prodotti dedicati."
+					}
+				/>
+				<Card
+					icon={
+						<svg
+							width="64"
+							height="64"
+							viewBox="0 0 64 64"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g clip-path="url(#clip0_507_1967)">
+								<path
+									d="M13.3466 24.008C14.0539 24.008 14.7322 24.2889 15.2323 24.789C15.7324 25.2891 16.0133 25.9674 16.0133 26.6746C20.203 26.6685 24.2719 28.078 27.56 30.6746H33.3466C36.8986 30.6746 40.0933 32.2213 42.2906 34.6746H50.68C53.2007 34.6739 55.6699 35.3878 57.8014 36.7334C59.9329 38.079 61.6392 40.0013 62.7226 42.2773C56.416 50.5973 46.2053 56.008 34.68 56.008C27.24 56.008 20.9466 54.4 15.8506 51.5866C15.6634 52.101 15.3225 52.5453 14.874 52.8593C14.4256 53.1732 13.8914 53.3415 13.344 53.3413H5.34397C4.63673 53.3413 3.95845 53.0604 3.45836 52.5603C2.95826 52.0602 2.67731 51.3819 2.67731 50.6746V26.6746C2.67731 25.9674 2.95826 25.2891 3.45836 24.789C3.95845 24.2889 4.63673 24.008 5.34397 24.008H13.3466ZM16.0133 32.008V45.4L16.1333 45.4853C20.9173 48.8453 27.1546 50.6746 34.68 50.6746C42.6906 50.6746 50.1413 47.592 55.5733 42.328L55.928 41.9733L55.608 41.7066C54.3483 40.7213 52.8222 40.1361 51.2266 40.0266L50.68 40.008H45.048C45.2435 40.8666 45.3431 41.7555 45.3466 42.6746V45.3413H21.3466V40.008L39.4533 40.0053L39.3626 39.7946C38.8515 38.7271 38.0653 37.8149 37.0848 37.1517C36.1044 36.4886 34.9651 36.0984 33.784 36.0213L33.3466 36.008H25.5333C24.2922 34.7417 22.8109 33.7358 21.1763 33.0489C19.5416 32.3621 17.7864 32.0082 16.0133 32.008ZM10.68 29.3413H8.01331V48.008H10.68V29.3413ZM48.0133 13.3413C50.135 13.3413 52.1699 14.1842 53.6702 15.6845C55.1705 17.1847 56.0133 19.2196 56.0133 21.3413C56.0133 23.463 55.1705 25.4979 53.6702 26.9982C52.1699 28.4985 50.135 29.3413 48.0133 29.3413C45.8916 29.3413 43.8567 28.4985 42.3565 26.9982C40.8562 25.4979 40.0133 23.463 40.0133 21.3413C40.0133 19.2196 40.8562 17.1847 42.3565 15.6845C43.8567 14.1842 45.8916 13.3413 48.0133 13.3413ZM48.0133 18.6746C47.3061 18.6746 46.6278 18.9556 46.1277 19.4557C45.6276 19.9558 45.3466 20.6341 45.3466 21.3413C45.3466 22.0486 45.6276 22.7268 46.1277 23.2269C46.6278 23.727 47.3061 24.008 48.0133 24.008C48.7206 24.008 49.3988 23.727 49.8989 23.2269C50.399 22.7268 50.68 22.0486 50.68 21.3413C50.68 20.6341 50.399 19.9558 49.8989 19.4557C49.3988 18.9556 48.7206 18.6746 48.0133 18.6746ZM29.3466 5.34131C31.4684 5.34131 33.5032 6.18416 35.0035 7.68445C36.5038 9.18475 37.3466 11.2196 37.3466 13.3413C37.3466 15.463 36.5038 17.4979 35.0035 18.9982C33.5032 20.4985 31.4684 21.3413 29.3466 21.3413C27.2249 21.3413 25.1901 20.4985 23.6898 18.9982C22.1895 17.4979 21.3466 15.463 21.3466 13.3413C21.3466 11.2196 22.1895 9.18475 23.6898 7.68445C25.1901 6.18416 27.2249 5.34131 29.3466 5.34131ZM29.3466 10.6746C28.6394 10.6746 27.9611 10.9556 27.461 11.4557C26.9609 11.9558 26.68 12.6341 26.68 13.3413C26.68 14.0486 26.9609 14.7268 27.461 15.2269C27.9611 15.727 28.6394 16.008 29.3466 16.008C30.0539 16.008 30.7322 15.727 31.2323 15.2269C31.7324 14.7268 32.0133 14.0486 32.0133 13.3413C32.0133 12.6341 31.7324 11.9558 31.2323 11.4557C30.7322 10.9556 30.0539 10.6746 29.3466 10.6746Z"
+									fill="#A8A8A8"
+								/>
+							</g>
+							<defs>
+								<clipPath id="clip0_507_1967">
+									<rect width="64" height="64" fill="white" />
+								</clipPath>
+							</defs>
+						</svg>
+					}
+					title={"Prestiti e cessione del quinto"}
+					description={
+						"La nostra offerta di finanziamenti e prestiti personali per farti ottenere liquidità immediata. Un panel ricco di proposte e di partner per tutti i tuoi progetti."
+					}
+				/>
 
-				<div className="grid grid-cols-3 gap-6 ">
-					<div className="py-6 rounded-lg">
-						<HouseIcon color={"darkgray"} size={60} />
+				<Card
+					icon={
+						<svg
+							width="64"
+							height="64"
+							viewBox="0 0 64 64"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M13.3333 12.2773V36.7706C13.3334 38.5265 13.7669 40.2552 14.5954 41.8034C15.4239 43.3515 16.6217 44.6712 18.0827 45.6453L32 54.9253L45.9173 45.6453C47.3779 44.6715 48.5755 43.3522 49.404 41.8046C50.2325 40.2569 50.6662 38.5287 50.6667 36.7733V12.2773L32 8.13329L13.3333 12.2773ZM10.088 7.53596L32 2.66663L53.912 7.53596C54.5042 7.6676 55.0338 7.9972 55.4134 8.47037C55.793 8.94354 55.9999 9.532 56 10.1386V36.7706C55.9998 39.4046 55.3494 41.9978 54.1064 44.32C52.8634 46.6422 51.0663 48.6217 48.8747 50.0826L32 61.3333L15.1253 50.0826C12.9341 48.6219 11.1372 46.6429 9.89426 44.3212C8.6513 41.9994 8.00063 39.4068 8 36.7733V10.1386C8.0001 9.532 8.20703 8.94354 8.58664 8.47037C8.96624 7.9972 9.49583 7.6676 10.088 7.53596ZM32 36L24.1627 40.12L25.6587 31.3946L19.32 25.2133L28.0827 23.9386L32 16L35.92 23.9386L44.68 25.2133L38.3413 31.3946L39.8347 40.12L32 36Z"
+								fill="#A8A8A8"
+							/>
+						</svg>
+					}
+					title={"Assicurazioni per la protezione del credito"}
+					description={
+						"Proteggi il tuo investimento con le nostre polizze assicurative per la protezione del credito."
+					}
+				/>
+			</Section>
 
-						<h3 className="text-xl font-bold mb-2 mt-4">Mutuo</h3>
-						<p className="text-md">
-							La soluzione creditizia per ogni progetto immobiliare. Mutuo
-							acquisto, mutuo per ristrutturazione, mutuo green, mutuo giovani
-							under 36, surroghe e altri prodotti dedicati.
-						</p>
-					</div>
-
-					<div className="py-6 rounded-lg">
-						<HandCoinsIcon color={"darkgray"} size={60} />
-
-						<h3 className="text-xl font-bold mb-2 mt-4">
-							Prestiti e cessione del quinto
-						</h3>
-						<p className="text-md">
-							La nostra offerta di finanziamenti e prestiti personali per farti
-							ottenere liquidità immediata. Un panel ricco di proposte e di
-							partner per tutti i tuoi progetti.
-						</p>
-					</div>
-
-					<div className="py-6 rounded-lg">
-						<ShieldQuestionIcon color={"darkgray"} size={60} />
-
-						<h3 className="text-xl font-bold mb-2 mt-4">
-							Assicurazioni per la protezione del credito
-						</h3>
-						<p className="text-md">
-							Proteggi il tuo investimento con le nostre polizze assicurative
-							per la protezione del credito.
-						</p>
-					</div>
-
-					<div className="py-6 rounded-lg">
-						<ContactIcon color={"darkgray"} size={60} />
-						<h3 className="text-xl font-bold mb-2 mt-4">Consulenza</h3>
-						<p className="text-md">
-							Offro consulenza per la scelta del prodotto più adatto alle tue
-							esigenze.
-						</p>
-					</div>
-				</div>
-			</section>
+			<Section
+				id={"location"}
+				title={"Dove trovarmi"}
+				subtitle={"Lavoro in più località: cerca la sede più vicina a te."}
+			>
+				<Map />
+			</Section>
 		</>
 	);
 }

@@ -10,7 +10,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@": path.resolve(import.meta.dirname, "./src"),
-			"@components": path.resolve(import.meta.dirname, "./src/components"),
+			"@components": path.resolve(import.meta.dirname, "./src/components/"),
 			"@backend": path.resolve(import.meta.dirname, "../backend"),
 		},
 	},
