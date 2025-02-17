@@ -20,9 +20,9 @@ export const LeafletMap = () => {
 	} = useMap();
 
 	return (
-		<div className="relative h-screen w-full">
+		<div className="flex flex-col h-[600px]">
 			{isMobile ? (
-				<div className="bg-white rounded-lg px-[1rem]">
+				<div className="bg-white rounded-lg px-4 py-4">
 					<h4 className="mb-2">Scegli una sede (5 disponibili)</h4>
 					<div className="relative">
 						<Select
@@ -38,7 +38,7 @@ export const LeafletMap = () => {
 								<ChevronDown className="h-4 w-4 opacity-50" />
 							</SelectTrigger>
 							<SelectContent
-								className="w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg border border-black bg-white shadow-md z-[99999999999] my-2"
+								className="w-[var(--radix-select-trigger-width)] overflow-hidden rounded-lg bg-white drop-shadow-lg z-[99999999999] my-2"
 								position="popper"
 							>
 								<SelectGroup className="p-2">
@@ -65,10 +65,9 @@ export const LeafletMap = () => {
 					)}
 				</div>
 			) : (
-				<div className="absolute top-2.5 left-14 z-9998 bg-white bg-opacity-80 text-black p-4 rounded-lg w-64 drop-shadow-2xl">
+				<div className="absolute left-[16rem] mt-2 z-[998] bg-white bg-opacity-80 text-black p-4 rounded-lg w-64 drop-shadow-2xl">
 					<div className="space-y-2">
 						{locations.map((loc) => (
-							// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 							<div
 								key={loc.name}
 								onClick={() => handleLocationSelect(loc)}
@@ -91,7 +90,6 @@ export const LeafletMap = () => {
 									</p>
 								</div>
 								{selectedLocation === loc.name && (
-									// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 									<svg
 										width="14"
 										height="20"
@@ -102,7 +100,7 @@ export const LeafletMap = () => {
 										<path
 											d="M7 0C3.13 0 0 3.13 0 7C0 12.25 7 20 7 20C7 20 14 12.25 14 7C14 3.13 10.87 0 7 0ZM7 9.5C6.33696 9.5 5.70107 9.23661 5.23223 8.76777C4.76339 8.29893 4.5 7.66304 4.5 7C4.5 6.33696 4.76339 5.70107 5.23223 5.23223C5.70107 4.76339 6.33696 4.5 7 4.5C7.66304 4.5 8.29893 4.76339 8.76777 5.23223C9.23661 5.70107 9.5 6.33696 9.5 7C9.5 7.66304 9.23661 8.29893 8.76777 8.76777C8.29893 9.23661 7.66304 9.5 7 9.5Z"
 											fill="white"
-											fill-opacity="0.8"
+											fillOpacity="0.8"
 										/>
 									</svg>
 								)}
@@ -111,7 +109,7 @@ export const LeafletMap = () => {
 					</div>
 				</div>
 			)}
-			<div ref={mapRef} className="h-1/2 w-full mt-2 md:mt-0" />
+			<div ref={mapRef} className="h-full w-full" />
 		</div>
 	);
 };
