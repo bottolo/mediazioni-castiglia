@@ -8,7 +8,7 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<div className="flex flex-col min-h-screen">
-			<header className=" top-0 border-b w-full bg-white z-[9999999999999999]">
+			<header className="sticky top-0 border-b w-full bg-white z-[9999999999999999]">
 				<Navbar />
 			</header>
 

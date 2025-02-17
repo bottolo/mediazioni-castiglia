@@ -16,13 +16,9 @@ export const Section = ({
 }: SectionProps) => {
 	return (
 		<section id={id} className="flex flex-col gap-4 ">
-			<div className="flex flex-col gap-1 pt-4 md:max-w-[50%] px-[1rem] mx:px-0">
-				<p className="text-[32px]/[40px] md:text-[36px]/[40px] font-bold">
-					{title}
-				</p>
-				<h2 className="text-[18px]/[24px] md:text-[20px]/[28px] pb-4">
-					{subtitle}
-				</h2>
+			<div className="flex flex-col gap-1 pt-4 md:max-w-[50%] px-[1rem] md:px-0">
+				<h2 className="font-bold">{title}</h2>
+				<p className="lg pb-4">{subtitle}</p>
 			</div>
 
 			<div className={childrenStyle}>{children}</div>

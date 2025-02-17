@@ -1,6 +1,6 @@
 import { Card } from "@/components/Card.tsx";
 import { Hero } from "@/components/Hero.tsx";
-import { Map } from "@/components/Map.tsx";
+import { LeafletMap } from "@/components/LeafletMap.tsx";
 import { Section } from "@/components/Section.tsx";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -18,7 +18,7 @@ function Index() {
 					"Lavoro al tuo fianco per farti risparmiare tempo, semplificare la raccolta di documenti e presentarti i prodotti più convenienti."
 				}
 				email={"gaetano.castiglia@24max.it"}
-				phone={"+39 349 0874432"}
+				phone={"+39 334 1058956"}
 				image={"https://picsum.photos/1000/1000"}
 			/>
 			<Section
@@ -26,7 +26,7 @@ function Index() {
 				title={"Servizi"}
 				subtitle={"Cosa offro ai miei clienti"}
 				childrenStyle={
-					"grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-[1rem] mx:px-0"
+					"grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-[1rem] md:px-0"
 				}
 			>
 				<Card
@@ -104,7 +104,7 @@ function Index() {
 				title={"Dove trovarmi"}
 				subtitle={"Lavoro in più località: cerca la sede più vicina a te."}
 			>
-				<Map />
+				<LeafletMap />
 			</Section>
 		</>
 	);

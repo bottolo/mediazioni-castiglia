@@ -1,14 +1,120 @@
 @import "tailwindcss";
 
 :root {
-	--primary-color: #000000;
-	--primary-color-dark: #000000;
-	--secondary-color: #6b7280;
-	--secondary-color-dark: #4b5563;
-	--danger-color: #ef4444;
-	--danger-color-dark: #dc2626;
+	--h1-font-size: 48px;
+	--h1-mobile-font-size: 40px;
 
-	--text-color: #000000;
+	--h2-font-size: 36px;
+	--h2-mobile-font-size: 32px;
 
-	--gray-100: #f3f4f6;
+	--h3-font-size: 24px;
+	--h3-mobile-font-size: 24px;
+
+	--h4-font-size: 16px;
+	--h4-mobile-font-size: 16px;
+
+	--body-lg-font-size: 20px;
+	--body-md-font-size: 16px;
+
+	--body-mobile-lg-font-size: 18px;
+	--body-mobile-md-font-size: 16px;
+	--body-mobile-sm-font-size: 14px;
+
+	--subheading-font-size: 32px;
+	--subheading-mobile-font-size: 24px;
+
+	--h1-line-height: 64px;
+	--h1-mobile-line-height: 48px;
+
+	--h2-line-height: 40px;
+	--h2-mobile-line-height: 40px;
+
+	--h3-line-height: 32px;
+	--h3-mobile-line-height: 32px;
+
+	--h4-line-height: 24px;
+	--h4-mobile-line-height: 24px;
+
+	--body-lg-line-height: 28px;
+	--body-md-line-height: 20px;
+
+	--body-mobile-lg-line-height: 28px;
+	--body-mobile-md-line-height: 20px;
+	--body-mobile-sm-line-height: 20px;
+
+	--subheading-line-height: 40px;
+	--subheading-mobile-line-height: 36px;
+
+	--bg-phone: #e1f7e9;
+	--bg-email: #deecfd;
+}
+
+@layer base {
+	h1 {
+		font-size: var(--h1-font-size);
+		line-height: var(--h1-line-height);
+	}
+
+	h2 {
+		font-size: var(--h2-font-size);
+		line-height: var(--h2-line-height);
+	}
+
+	h3 {
+		font-size: var(--h3-font-size);
+		line-height: var(--h3-line-height);
+	}
+
+	h4 {
+		font-size: var(--h4-font-size);
+		line-height: var(--h4-line-height);
+	}
+
+	p {
+		font-size: var(--body-md-font-size);
+		line-height: var(--body-md-line-height);
+	}
+
+	p.sm {
+		font-size: var(--body-mobile-sm-font-size);
+		line-height: var(--body-mobile-sm-line-height);
+	}
+
+	p.lg {
+		font-size: var(--body-lg-font-size);
+		line-height: var(--body-lg-line-height);
+	}
+
+	.subheading {
+		font-size: var(--subheading-font-size);
+		line-height: var(--subheading-line-height);
+	}
+
+	@media (max-width: 768px) {
+		h1 {
+			font-size: var(--h1-mobile-font-size);
+			line-height: var(--h1-mobile-line-height);
+		}
+		h2 {
+			font-size: var(--h2-mobile-font-size);
+			line-height: var(--h2-mobile-line-height);
+		}
+		h3 {
+			font-size: var(--h3-mobile-font-size);
+			line-height: var(--h3-mobile-line-height);
+		}
+		h4 {
+			font-size: var(--h4-mobile-font-size);
+			line-height: var(--h4-mobile-line-height);
+		}
+		p {
+			font-size: var(--body-mobile-md-font-size);
+			line-height: var(--body-mobile-md-line-height);
+		}
+
+		.subheading {
+			font-size: var(--subheading-mobile-font-size);
+			line-height: var(--subheading-mobile-line-height);
+		}
+	}
 }

@@ -18,22 +18,18 @@ export const Hero = ({
 	return (
 		<section
 			id={"hero"}
-			className="flex flex-col-reverse gap-8 md:flex-row mb-22 "
+			className="flex flex-col-reverse gap-4 md:gap-8 md:flex-row mb-22"
 		>
-			<div className="flex flex-col gap-1 pt-0 md:max-w-[50%] px-[1rem] mx:px-0">
-				<p className="text-[40px]/[48px] md:text-[48px]/[64px] font-bold">
-					{title}
-				</p>
-				<p className="text-[24px]/[36px] md:text-[32px]/[40px] pb-4">
-					{subtitle}
-				</p>
-				<p className="text-[18px]/[24px] md:text-[20px]/[28px] mb-4">
-					{description}
-				</p>
+			<div className="flex flex-col gap-1 pt-0 md:max-w-[50%] px-[1rem] md:px-0">
+				<div className="hidden md:block">
+					<h1 className="relative font-bold"> {title}</h1>
+					<p className="relative subheading pb-4">{subtitle}</p>
+				</div>
+				<p className="lg mb-4">{description}</p>
 				<div className={"flex flex-col gap-4"}>
-					<div className={"bg-[#DEECFD] md:w-fit p-3 rounded-md"}>
+					<div className={"bg-[var(--bg-email)] md:w-fit p-3 rounded-md"}>
 						<div className={"flex flex-row justify-between md:gap-64"}>
-							<p className={"text-[16px]/[24px] text-gray-500"}>Email</p>
+							<h4 className={"text-gray-500"}>Email</h4>
 							<svg
 								width="20"
 								height="20"
@@ -47,12 +43,12 @@ export const Hero = ({
 								/>
 							</svg>
 						</div>
-						<p className={"text-[20px]/[28px] font-bold"}>{email}</p>
+						<p className={"lg font-bold"}>{email}</p>
 					</div>{" "}
-					<div className={"bg-[#E1F7E9] md:w-fit p-3 rounded-md"}>
+					<div className={"bg-[var(--bg-phone)] md:w-fit p-3 rounded-md"}>
 						<div className={"flex flex-row justify-between md:gap-32"}>
 							{" "}
-							<p className={"text-[16px]/[24px] text-gray-500"}>Whatsapp</p>
+							<h4 className={"text-gray-500"}>Whatsapp</h4>
 							<svg
 								width="20"
 								height="20"
@@ -99,7 +95,7 @@ export const Hero = ({
 								</defs>
 							</svg>
 						</div>
-						<p className={"text-[20px]/[28px] font-bold"}>{phone}</p>
+						<p className={"lg font-bold"}>{phone}</p>
 					</div>
 					<button
 						type={"button"}
@@ -111,8 +107,16 @@ export const Hero = ({
 					</button>
 				</div>
 			</div>
-			<div className="flex-1 md:max-w-[50%]">
+			<div className="relative flex-1 md:max-w-[50%]">
 				<img alt="test" src={image} className="w-full h-auto" />
+
+				<div className="absolute bottom-0 left-0 right-0 md:hidden">
+					<div className="bg-gradient-to-t from-black/80 to-transparent h-48 w-full" />
+					<div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+						<h1 className="font-bold mb-2">{title}</h1>
+						<p className="subheading">{subtitle}</p>
+					</div>
+				</div>
 			</div>
 		</section>
 	);

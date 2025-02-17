@@ -1,9 +1,8 @@
 import { cn } from "@/utils/cn.ts";
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 
 export const MiddleSection = () => {
-	const [currentPage, setCurrentPage] = useState<"/" | "/about">("/");
+	const location = useLocation();
 
 	return (
 		<div className="invisible md:visible flex flex-1 justify-center items-center gap-2 text-sm">
@@ -11,28 +10,26 @@ export const MiddleSection = () => {
 				<button
 					className={cn(
 						"p-3 rounded-sm cursor-pointer",
-						currentPage === "/"
+						location.pathname === "/"
 							? "bg-black text-white"
 							: "hover:bg-gray-100 transition-colors",
 					)}
 					type="button"
-					onClick={() => setCurrentPage("/")}
 				>
-					Home
+					<h4>Home</h4>
 				</button>
 			</Link>
 			<Link to="/about">
 				<button
 					className={cn(
 						"p-3 rounded-sm cursor-pointer",
-						currentPage === "/about"
+						location.pathname === "/about"
 							? "bg-black text-white"
 							: "hover:bg-gray-100 transition-colors",
 					)}
 					type="button"
-					onClick={() => setCurrentPage("/about")}
 				>
-					Contatti
+					<h4>Contatti</h4>
 				</button>
 			</Link>
 		</div>
