@@ -2,6 +2,7 @@ export type Location = {
 	name: string;
 	coords: [number, number];
 	address: string;
+	image?: string;
 };
 export const locations: Location[] = [
 	{

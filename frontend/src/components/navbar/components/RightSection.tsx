@@ -4,7 +4,7 @@ import { MenuIcon } from "lucide-react";
 export const RightSection = () => {
 	return (
 		<>
-			<div className="hidden md:flex flex-row items-center gap-2 w-[200px] justify-end">
+			<div className="hidden md:flex flex-row items-center gap-2 md:w-[200px] justify-end">
 				<a
 					href={"https://www.linkedin.com/in/gaetano-castiglia-9b739251/"}
 					className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
@@ -87,7 +87,7 @@ export const RightSection = () => {
 					</svg>
 				</div>
 			</div>
-			<div className={"md:hidden justify-end"}>
+			<div className={"md:hidden absolute right-4 flex justify-end flex-1"}>
 				<button
 					className={cn(
 						"px-4 py-2.5 rounded-sm cursor-pointer bg-black text-white flex flex-row gap-2 items-center",
