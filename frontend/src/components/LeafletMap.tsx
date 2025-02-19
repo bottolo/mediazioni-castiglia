@@ -1,4 +1,4 @@
-import { useMap } from "@/hooks/useMap";
+import { useMap } from "@/hooks/use-map.ts";
 import { locations } from "@/utils/locations";
 import {
 	Select,
@@ -6,7 +6,6 @@ import {
 	SelectGroup,
 	SelectItem,
 	SelectTrigger,
-	SelectValue,
 } from "@radix-ui/react-select";
 import { ChevronDown, MapPin } from "lucide-react";
 
@@ -34,7 +33,7 @@ export const LeafletMap = () => {
 							}
 						>
 							<SelectTrigger className="flex w-full items-center justify-between rounded-lg border border-black bg-white px-3 py-4 pl-10 text-sm focus:outline-none">
-								<SelectValue />
+								<p>{selectedLocation || "Seleziona una sede"}</p>
 								<ChevronDown className="h-4 w-4 opacity-50" />
 							</SelectTrigger>
 							<SelectContent

@@ -1,4 +1,5 @@
 import { LeftSection } from "@/components/navbar/components/LeftSection.tsx";
+import { MenuButton } from "@/components/navbar/components/MenuButton.tsx";
 import { MiddleSection } from "@/components/navbar/components/MiddleSection.tsx";
 import { RightSection } from "@/components/navbar/components/RightSection.tsx";
 
@@ -8,6 +9,7 @@ export const Navbar = () => {
 			<LeftSection />
 			<MiddleSection />
 			<RightSection />
+			<MenuButton />
 		</nav>
 	);
 };

@@ -1,35 +1,39 @@
+import { ContactCard } from "@/components/ContactCard.tsx";
+import { toast } from "sonner";
+
 type HeroProps = {
 	title: string;
 	subtitle: string;
 	description: string;
 	email: string;
 	phone: string;
-	image: string;
 };
 
-export const Hero = ({
+export const AboutHero = ({
 	title,
 	subtitle,
 	description,
 	email,
 	phone,
-	image,
 }: HeroProps) => {
 	return (
 		<section
 			id={"hero"}
-			className="flex flex-col-reverse gap-4 md:gap-8 md:flex-row mb-22"
+			className="flex flex-col gap-4 md:gap-8 md:flex-row mb-12 md:mb-20 mt-12 md:mt-0"
 		>
 			<div className="flex flex-col gap-1 pt-0 md:max-w-[50%] px-[1rem] md:px-0">
-				<div className="hidden md:block">
+				<div>
 					<h1 className="relative font-bold"> {title}</h1>
 					<p className="relative subheading pb-4">{subtitle}</p>
 				</div>
 				<p className="lg mb-4">{description}</p>
+			</div>
+			<div className="relative flex-1 md:max-w-[50%] mx-4 md:mx-0">
 				<div className={"flex flex-col gap-4"}>
-					<div className={"bg-[var(--bg-email)] md:w-fit p-3 rounded-md"}>
-						<div className={"flex flex-row justify-between md:gap-64"}>
-							<h4 className={"text-gray-500"}>Email</h4>
+					<ContactCard
+						label={"Email"}
+						value={email}
+						icon={
 							<svg
 								width="20"
 								height="20"
@@ -42,13 +46,19 @@ export const Hero = ({
 									fill="#0D7DFF"
 								/>
 							</svg>
-						</div>
-						<p className={"lg font-bold"}>{email}</p>
-					</div>{" "}
-					<div className={"bg-[var(--bg-phone)] md:w-fit p-3 rounded-md"}>
-						<div className={"flex flex-row justify-between md:gap-32"}>
-							{" "}
-							<h4 className={"text-gray-500"}>Whatsapp</h4>
+						}
+						childrenClassName={"md:gap-64"}
+						backgroundColor={"var(--bg-email)"}
+						onClick={async (e) => {
+							e.preventDefault();
+
+							window.location.href = "mailto:gaetano.castiglia@24max.it";
+						}}
+					/>
+					<ContactCard
+						label={"Whatsapp"}
+						value={phone}
+						icon={
 							<svg
 								width="20"
 								height="20"
@@ -94,28 +104,87 @@ export const Hero = ({
 									</clipPath>
 								</defs>
 							</svg>
-						</div>
-						<p className={"lg font-bold"}>{phone}</p>
-					</div>
-					<button
-						type={"button"}
-						className={
-							"p-3 bg-black w-fit text-white font-bold rounded-md text-[16px]/[24px]"
 						}
-					>
-						Contattami direttamente
-					</button>
-				</div>
-			</div>
-			<div className="relative flex-1 md:max-w-[50%]">
-				<img alt="test" src={image} className="w-full h-auto" />
+						backgroundColor={"var(--bg-phone)"}
+						onClick={async () => {
+							await navigator.clipboard.writeText(phone);
 
-				<div className="absolute bottom-0 left-0 right-0 md:hidden">
-					<div className="bg-gradient-to-t from-black/80 to-transparent h-48 w-full" />
-					<div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-						<h1 className="font-bold mb-2">{title}</h1>
-						<p className="subheading">{subtitle}</p>
-					</div>
+							toast(phone, {
+								description: "Telefono copiato negli appunti",
+								action: {
+									label: "Chiudi",
+								},
+							});
+						}}
+					/>
+					<a href={"https://www.facebook.com/mediazionicastiglia"}>
+						<ContactCard
+							label={"Facebook"}
+							value={"mediazionicastiglia"}
+							icon={
+								<svg
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<g clip-path="url(#clip0_107_1987)">
+										<path
+											d="M24 12C24 5.37262 18.6274 0 12 0C5.37262 0 0 5.37262 0 12C0 17.9895 4.38825 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9705 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.3399 7.875 13.875 8.80003 13.875 9.74906V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6117 22.954 24 17.9896 24 12Z"
+											fill="#1877F2"
+										/>
+										<path
+											d="M16.6711 15.4688L17.2031 12H13.875V9.74906C13.875 8.79994 14.3399 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9705 4.6875 14.6575 4.6875C11.9166 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C10.7453 23.9514 11.3722 24.0001 12 24C12.6278 24.0001 13.2547 23.9514 13.875 23.8542V15.4688H16.6711Z"
+											fill="white"
+										/>
+									</g>
+									<defs>
+										<clipPath id="clip0_107_1987">
+											<rect width="24" height="24" fill="white" />
+										</clipPath>
+									</defs>
+								</svg>
+							}
+							backgroundColor={"#F0F0F0"}
+							className={"text-left"}
+							childrenClassName={"gap-40"}
+						/>
+					</a>
+					<a href={"https://www.linkedin.com/in/gaetano-castiglia-9b739251/"}>
+						<ContactCard
+							label={"Linkedin"}
+							value={"Gaetano Castiglia"}
+							icon={
+								<svg
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<g clip-path="url(#clip0_107_1991)">
+										<path
+											d="M21.75 0.562587H2.25C1.80756 0.558084 1.3814 0.729282 1.06504 1.03862C0.74867 1.34795 0.56794 1.77016 0.5625 2.21259V21.7913C0.568923 22.2331 0.750087 22.6544 1.06634 22.9629C1.3826 23.2714 1.8082 23.4421 2.25 23.4376H21.75C22.1925 23.4411 22.6183 23.2693 22.9345 22.9598C23.2507 22.6503 23.4316 22.2282 23.4375 21.7857V2.20696C23.4296 1.76583 23.2479 1.34564 22.9319 1.03772C22.6159 0.729808 22.1912 0.559058 21.75 0.562587Z"
+											fill="#0076B2"
+										/>
+										<path
+											d="M3.94871 9.13696H7.34434V20.0626H3.94871V9.13696ZM5.64746 3.69946C6.03692 3.69946 6.41764 3.81498 6.74144 4.03139C7.06523 4.2478 7.31757 4.55539 7.46653 4.91524C7.61548 5.27509 7.65436 5.67104 7.57824 6.05299C7.50213 6.43494 7.31444 6.78573 7.03891 7.06099C6.76339 7.33625 6.41242 7.52361 6.0304 7.59936C5.64837 7.67512 5.25246 7.63586 4.89275 7.48656C4.53304 7.33726 4.2257 7.08463 4.00959 6.76063C3.79349 6.43662 3.67834 6.0558 3.67871 5.66634C3.67921 5.14452 3.88685 4.64424 4.25601 4.27543C4.62517 3.90663 5.12564 3.69946 5.64746 3.69946ZM9.47434 9.13696H12.7293V10.637H12.7743C13.2281 9.77821 14.3343 8.87259 15.9862 8.87259C19.425 8.86509 20.0625 11.1282 20.0625 14.0626V20.0626H16.6668V14.747C16.6668 13.4813 16.6443 11.852 14.9025 11.852C13.1606 11.852 12.8643 13.232 12.8643 14.6645V20.0626H9.47434V9.13696Z"
+											fill="white"
+										/>
+									</g>
+									<defs>
+										<clipPath id="clip0_107_1991">
+											<rect width="24" height="24" fill="white" />
+										</clipPath>
+									</defs>
+								</svg>
+							}
+							backgroundColor={"#F0F0F0"}
+							className={"text-left"}
+							childrenClassName={"gap-40"}
+						/>
+					</a>
 				</div>
 			</div>
 		</section>

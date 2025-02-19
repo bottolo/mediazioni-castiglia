@@ -1,6 +1,5 @@
 import { Card } from "@/components/Card.tsx";
-import { Hero } from "@/components/Hero.tsx";
-import { LeafletMap } from "@/components/LeafletMap.tsx";
+import { HomeHero } from "@/components/HomeHero.tsx";
 import { Section } from "@/components/Section.tsx";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -11,15 +10,14 @@ export const Route = createFileRoute("/")({
 function Index() {
 	return (
 		<>
-			<Hero
+			<HomeHero
 				title={"Gaetano Castiglia"}
-				subtitle={"Mediatore Creditizio"}
+				subtitle={"Consulente del credito e assicurativo"}
 				description={
-					"Lavoro al tuo fianco per farti risparmiare tempo, semplificare la raccolta di documenti e presentarti i prodotti più convenienti."
+					"Scopri il mutuo che si adatta alle tue esigenze attraverso una consulenza personalizzata. Lavorerò al tuo fianco per farti risparmiare tempo, semplificare la raccolta documentale e presentarti il prodotto creditizio più conveniente grazie alle numerose convenzioni con i nostri partner bancari."
 				}
 				email={"gaetano.castiglia@24max.it"}
 				phone={"+39 334 1058956"}
-				image={"https://picsum.photos/1000/1000"}
 			/>
 			<Section
 				id={"services"}
@@ -97,14 +95,6 @@ function Index() {
 						"Proteggi il tuo investimento con le nostre polizze assicurative per la protezione del credito."
 					}
 				/>
-			</Section>
-
-			<Section
-				id={"location"}
-				title={"Dove trovarmi"}
-				subtitle={"Lavoro in più località: cerca la sede più vicina a te."}
-			>
-				<LeafletMap />
 			</Section>
 		</>
 	);

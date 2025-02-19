@@ -29,7 +29,7 @@ export const MiddleSection = () => {
 					)}
 					type="button"
 				>
-					<h4>Contatti</h4>
+					<h4>Chi sono</h4>
 				</button>
 			</Link>
 		</div>

@@ -8,11 +8,11 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<div className="flex flex-col min-h-screen">
-			<header className="sticky top-0 border-b w-full bg-white z-[9999999999999999]">
+			<header className="sticky top-0 border-b w-full bg-white z-10">
 				<Navbar />
 			</header>
 
-			<main className="flex-1 md:py-12 md:px-[12rem] space-y-16 md:mt-12">
+			<main className="flex-1 md:py-12 md:px-[12rem] space-y-4 md:space-y-8 md:mt-12">
 				<Outlet />
 			</main>
 

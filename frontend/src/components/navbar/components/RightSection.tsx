@@ -1,5 +1,4 @@
-import { cn } from "@/utils/cn.ts";
-import { MenuIcon } from "lucide-react";
+import { toast } from "sonner";
 
 export const RightSection = () => {
 	return (
@@ -33,32 +32,46 @@ export const RightSection = () => {
 						</defs>
 					</svg>
 				</a>
-				<div className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<g clip-path="url(#clip0_107_1987)">
-							<path
-								d="M24 12C24 5.37262 18.6274 0 12 0C5.37262 0 0 5.37262 0 12C0 17.9895 4.38825 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9705 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.3399 7.875 13.875 8.80003 13.875 9.74906V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6117 22.954 24 17.9896 24 12Z"
-								fill="#1877F2"
-							/>
-							<path
-								d="M16.6711 15.4688L17.2031 12H13.875V9.74906C13.875 8.79994 14.3399 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9705 4.6875 14.6575 4.6875C11.9166 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C10.7453 23.9514 11.3722 24.0001 12 24C12.6278 24.0001 13.2547 23.9514 13.875 23.8542V15.4688H16.6711Z"
-								fill="white"
-							/>
-						</g>
-						<defs>
-							<clipPath id="clip0_107_1987">
-								<rect width="24" height="24" fill="white" />
-							</clipPath>
-						</defs>
-					</svg>
-				</div>
-				<div className="p-1 rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+				<a href={"https://www.facebook.com/mediazionicastiglia"}>
+					<div className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g clip-path="url(#clip0_107_1987)">
+								<path
+									d="M24 12C24 5.37262 18.6274 0 12 0C5.37262 0 0 5.37262 0 12C0 17.9895 4.38825 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9705 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.3399 7.875 13.875 8.80003 13.875 9.74906V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6117 22.954 24 17.9896 24 12Z"
+									fill="#1877F2"
+								/>
+								<path
+									d="M16.6711 15.4688L17.2031 12H13.875V9.74906C13.875 8.79994 14.3399 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9705 4.6875 14.6575 4.6875C11.9166 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C10.7453 23.9514 11.3722 24.0001 12 24C12.6278 24.0001 13.2547 23.9514 13.875 23.8542V15.4688H16.6711Z"
+									fill="white"
+								/>
+							</g>
+							<defs>
+								<clipPath id="clip0_107_1987">
+									<rect width="24" height="24" fill="white" />
+								</clipPath>
+							</defs>
+						</svg>
+					</div>
+				</a>
+				<div
+					className="p-1 rounded-md hover:bg-gray-100 transition-colors cursor-pointer "
+					onClick={async () => {
+						await navigator.clipboard.writeText("+39 334 1058 956");
+
+						toast("+39 334 1058 956", {
+							description: "Telefono copiato negli appunti",
+							action: {
+								label: "Chiudi",
+							},
+						});
+					}}
+				>
 					<svg
 						width="24"
 						height="24"
@@ -72,7 +85,14 @@ export const RightSection = () => {
 						/>
 					</svg>
 				</div>
-				<div className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+				<div
+					className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+					onClick={async (e) => {
+						e.preventDefault();
+
+						window.location.href = "mailto:gaetano.castiglia@24max.it";
+					}}
+				>
 					<svg
 						width="24"
 						height="24"
@@ -86,16 +106,6 @@ export const RightSection = () => {
 						/>
 					</svg>
 				</div>
-			</div>
-			<div className={"md:hidden absolute right-4 flex justify-end flex-1"}>
-				<button
-					className={cn(
-						"px-4 py-2.5 rounded-sm cursor-pointer bg-black text-white flex flex-row gap-2 items-center",
-					)}
-					type="button"
-				>
-					Menu <MenuIcon size={18} />
-				</button>
 			</div>
 		</>
 	);
