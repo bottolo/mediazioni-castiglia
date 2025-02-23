@@ -97,7 +97,7 @@ export const useMap = (): UseMapReturn => {
 
 			const popupContent = `
         <div class="w-40 flex flex-col">
-          <h3 class="font-bold">${loc.name}</h3>
+          <h3 class="font-semibold">${loc.name}</h3>
           <p class="text-gray-500">${loc.address}</p>
         </div>
       `;

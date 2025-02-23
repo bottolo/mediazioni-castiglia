@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -41,15 +43,28 @@
 	--body-lg-line-height: 28px;
 	--body-md-line-height: 20px;
 
-	--body-mobile-lg-line-height: 28px;
+	--body-mobile-lg-line-height: 24px;
 	--body-mobile-md-line-height: 20px;
 	--body-mobile-sm-line-height: 20px;
 
 	--subheading-line-height: 40px;
 	--subheading-mobile-line-height: 36px;
 
-	--bg-phone: #e1f7e9;
-	--bg-email: #deecfd;
+	--bg-neutral-hover: #dcdcdc;
+
+	--bg-card-email: #deecfd;
+	--bg-card-email-hover: #c8dffc;
+
+	--bg-card-phone: #e1f7e9;
+	--bg-card-phone-hover: #c3f7d9;
+
+	--bg-card-neutral: #f0f0f0;
+	--bg-card-neutral-hover: #dcdcdc;
+
+	--radius-select-item: 4px;
+	--radius-select: 8px;
+	--drop-shadow-select: 0 4px 8px rgba(0, 0, 0, 0.3);
+	--drop-shadow-toast: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 	--background: 0 0% 100%;
 	--foreground: 224 71.4% 4.1%;
@@ -176,9 +191,29 @@
 			line-height: var(--body-mobile-md-line-height);
 		}
 
+		p.lg {
+			font-size: var(--body-mobile-lg-font-size);
+			line-height: var(--body-mobile-lg-line-height);
+		}
+
 		.subheading {
 			font-size: var(--subheading-mobile-font-size);
 			line-height: var(--subheading-mobile-line-height);
 		}
 	}
+
+	.sx-react-calendar-wrapper {
+		width: 100%;
+		height: 800px;
+		max-height: 90vh;
+	}
 }
+
+/*@layer base {*/
+/*	* {*/
+/*		@apply border;*/
+/*	}*/
+/*	body {*/
+/*		@apply;*/
+/*	}*/
+/*}*/

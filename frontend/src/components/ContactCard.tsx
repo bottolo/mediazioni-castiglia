@@ -15,7 +15,6 @@ export const ContactCard = ({
 	label,
 	value,
 	icon,
-	backgroundColor,
 	className = "",
 	childrenClassName = "",
 	onClick,
@@ -26,9 +25,8 @@ export const ContactCard = ({
 			className={cn(
 				"md:w-fit p-3 rounded-md",
 				className,
-				onClick && "hover:opacity-80 cursor-pointer",
+				onClick && "cursor-pointer",
 			)}
-			style={{ backgroundColor }}
 			onClick={onClick}
 		>
 			<div
@@ -40,7 +38,7 @@ export const ContactCard = ({
 				<h4 className="text-gray-500">{label}</h4>
 				<div className="w-5 h-5">{icon}</div>
 			</div>
-			<p className="lg font-bold">{value}</p>
+			<p className="lg font-semibold">{value}</p>
 		</div>
 	);
 };

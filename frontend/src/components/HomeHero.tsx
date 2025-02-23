@@ -1,6 +1,7 @@
 import { ContactCard } from "@/components/ContactCard.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { useImages } from "@/hooks/use-images.ts";
+import { XIcon } from "lucide-react";
 import { toast } from "sonner";
 
 type HeroProps = {
@@ -31,12 +32,15 @@ export const HomeHero = ({
 		>
 			<div className="flex flex-col gap-1 pt-0 md:max-w-[50%] px-[1rem] md:px-0">
 				<div className="hidden md:block">
-					<h1 className="relative font-bold"> {title}</h1>
+					<h1 className="relative font-semibold"> {title}</h1>
 					<p className="relative subheading pb-4">{subtitle}</p>
 				</div>
 				<p className="lg mb-4">{description}</p>
-				<div className={"flex flex-col gap-4"}>
+				<div className={"flex flex-col gap-2"}>
 					<ContactCard
+						className={
+							"bg-[var(--bg-card-email)] hover:bg-[var(--bg-card-email-hover)]"
+						}
 						label={"Email"}
 						value={email}
 						icon={
@@ -62,6 +66,9 @@ export const HomeHero = ({
 						}}
 					/>
 					<ContactCard
+						className={
+							"bg-[var(--bg-card-phone)] hover:bg-[var(--bg-card-phone-hover)]"
+						}
 						label={"Whatsapp"}
 						value={phone}
 						icon={
@@ -111,37 +118,50 @@ export const HomeHero = ({
 								</defs>
 							</svg>
 						}
-						backgroundColor={"var(--bg-phone)"}
 						onClick={async () => {
 							await navigator.clipboard.writeText(phone);
 
-							toast(phone, {
-								description: "Telefono copiato negli appunti",
-								action: {
-									label: "Chiudi",
-								},
-							});
+							toast.custom((id) => (
+								<div
+									className={
+										"flex flex-col bg-white p-4 rounded-sm md:w-[350px]"
+									}
+								>
+									<p className="lg font-semibold">{phone}</p>
+									<p className="sm text-gray-500">
+										Telefono copiato negli appunti
+									</p>
+									<button
+										className="absolute top-2 right-2 cursor-pointer"
+										onClick={async () => {
+											toast.dismiss(id);
+										}}
+									>
+										<XIcon size={18} />
+									</button>
+								</div>
+							));
 						}}
 					/>
 				</div>
 			</div>
 			<div className="relative flex-1 md:max-w-[50%]">
 				{isLoading ? (
-					<Skeleton className="absolute top-0 left-0 right-0 bottom-0 h-[475px] w-full rounded-none" />
+					<Skeleton className="md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 h-[300px] md:h-[475px] w-full rounded-none" />
 				) : (
 					<img
 						alt="test"
 						src={data[0]?.data}
-						className="w-full h-auto"
+						className="w-full h-[400px] md:h-full object-cover"
 						loading={"lazy"}
 					/>
 				)}
 
 				<div className="absolute bottom-0 left-0 right-0 md:hidden">
-					<div className="bg-gradient-to-t from-black/80 to-transparent h-48 w-full" />
+					<div className="bg-gradient-to-t from-black to-transparent h-[240px] w-full" />
 					<div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-						<h1 className="font-bold mb-2">{title}</h1>
-						<p className="subheading">{subtitle}</p>
+						<h1 className="font-semibold mb-1">{title}</h1>
+						<p className="lg">{subtitle}</p>
 					</div>
 				</div>
 			</div>

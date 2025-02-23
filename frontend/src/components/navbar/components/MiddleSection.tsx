@@ -12,7 +12,7 @@ export const MiddleSection = () => {
 						"p-3 rounded-sm cursor-pointer",
 						location.pathname === "/"
 							? "bg-black text-white"
-							: "hover:bg-gray-100 transition-colors",
+							: "hover:bg-[var(--bg-neutral-hover)]",
 					)}
 					type="button"
 				>
@@ -25,7 +25,7 @@ export const MiddleSection = () => {
 						"p-3 rounded-sm cursor-pointer",
 						location.pathname === "/about"
 							? "bg-black text-white"
-							: "hover:bg-gray-100 transition-colors",
+							: "hover:bg-[var(--bg-neutral-hover)]",
 					)}
 					type="button"
 				>

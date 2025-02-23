@@ -1,3 +1,4 @@
+import { XIcon } from "lucide-react";
 import { toast } from "sonner";
 
 export const RightSection = () => {
@@ -6,7 +7,7 @@ export const RightSection = () => {
 			<div className="hidden md:flex flex-row items-center gap-2 md:w-[200px] justify-end">
 				<a
 					href={"https://www.linkedin.com/in/gaetano-castiglia-9b739251/"}
-					className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+					className="p-1 rounded-lg hover:bg-[var(--bg-neutral-hover)] cursor-pointer"
 				>
 					<svg
 						width="24"
@@ -33,7 +34,7 @@ export const RightSection = () => {
 					</svg>
 				</a>
 				<a href={"https://www.facebook.com/mediazionicastiglia"}>
-					<div className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+					<div className="p-1  rounded-lg hover:bg-[var(--bg-neutral-hover)] cursor-pointer">
 						<svg
 							width="24"
 							height="24"
@@ -60,16 +61,28 @@ export const RightSection = () => {
 					</div>
 				</a>
 				<div
-					className="p-1 rounded-md hover:bg-gray-100 transition-colors cursor-pointer "
+					className="p-1 rounded-lg hover:bg-[var(--bg-neutral-hover)] cursor-pointer "
 					onClick={async () => {
 						await navigator.clipboard.writeText("+39 334 1058 956");
 
-						toast("+39 334 1058 956", {
-							description: "Telefono copiato negli appunti",
-							action: {
-								label: "Chiudi",
-							},
-						});
+						toast.custom((id) => (
+							<div
+								className={"flex flex-col bg-white p-4 rounded-sm md:w-[350px]"}
+							>
+								<p className="lg font-semibold">+39 334 1058 956</p>
+								<p className="sm text-gray-500">
+									Telefono copiato negli appunti
+								</p>
+								<button
+									className="absolute top-2 right-2 cursor-pointer"
+									onClick={async () => {
+										toast.dismiss(id);
+									}}
+								>
+									<XIcon size={18} />
+								</button>
+							</div>
+						));
 					}}
 				>
 					<svg
@@ -86,7 +99,7 @@ export const RightSection = () => {
 					</svg>
 				</div>
 				<div
-					className="p-1  rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
+					className="p-1  rounded-lg hover:bg-[var(--bg-neutral-hover)] cursor-pointer"
 					onClick={async (e) => {
 						e.preventDefault();
 

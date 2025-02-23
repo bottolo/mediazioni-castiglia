@@ -1,4 +1,5 @@
 import { ContactCard } from "@/components/ContactCard.tsx";
+import { XIcon } from "lucide-react";
 import { toast } from "sonner";
 
 type HeroProps = {
@@ -23,7 +24,7 @@ export const AboutHero = ({
 		>
 			<div className="flex flex-col gap-1 pt-0 md:max-w-[50%] px-[1rem] md:px-0">
 				<div>
-					<h1 className="relative font-bold"> {title}</h1>
+					<h1 className="relative font-semibold"> {title}</h1>
 					<p className="relative subheading pb-4">{subtitle}</p>
 				</div>
 				<p className="lg mb-4">{description}</p>
@@ -31,6 +32,9 @@ export const AboutHero = ({
 			<div className="relative flex-1 md:max-w-[50%] mx-4 md:mx-0">
 				<div className={"flex flex-col gap-4"}>
 					<ContactCard
+						className={
+							"bg-[var(--bg-card-email)] hover:bg-[var(--bg-card-email-hover)]"
+						}
 						label={"Email"}
 						value={email}
 						icon={
@@ -48,7 +52,6 @@ export const AboutHero = ({
 							</svg>
 						}
 						childrenClassName={"md:gap-64"}
-						backgroundColor={"var(--bg-email)"}
 						onClick={async (e) => {
 							e.preventDefault();
 
@@ -56,6 +59,9 @@ export const AboutHero = ({
 						}}
 					/>
 					<ContactCard
+						className={
+							"bg-[var(--bg-card-phone)] hover:bg-[var(--bg-card-phone-hover)]"
+						}
 						label={"Whatsapp"}
 						value={phone}
 						icon={
@@ -105,20 +111,36 @@ export const AboutHero = ({
 								</defs>
 							</svg>
 						}
-						backgroundColor={"var(--bg-phone)"}
 						onClick={async () => {
 							await navigator.clipboard.writeText(phone);
 
-							toast(phone, {
-								description: "Telefono copiato negli appunti",
-								action: {
-									label: "Chiudi",
-								},
-							});
+							toast.custom((id) => (
+								<div
+									className={
+										"flex flex-col bg-white p-4 rounded-sm md:w-[350px]"
+									}
+								>
+									<p className="lg font-semibold">{phone}</p>
+									<p className="sm text-gray-500">
+										Telefono copiato negli appunti
+									</p>
+									<button
+										className="absolute top-2 right-2 cursor-pointer"
+										onClick={async () => {
+											toast.dismiss(id);
+										}}
+									>
+										<XIcon size={18} />
+									</button>
+								</div>
+							));
 						}}
 					/>
 					<a href={"https://www.facebook.com/mediazionicastiglia"}>
 						<ContactCard
+							className={
+								"bg-[var(--bg-card-neutral)] hover:bg-[var(--bg-card-neutral-hover)] text-left"
+							}
 							label={"Facebook"}
 							value={"mediazionicastiglia"}
 							icon={
@@ -146,13 +168,14 @@ export const AboutHero = ({
 									</defs>
 								</svg>
 							}
-							backgroundColor={"#F0F0F0"}
-							className={"text-left"}
 							childrenClassName={"gap-40"}
 						/>
 					</a>
 					<a href={"https://www.linkedin.com/in/gaetano-castiglia-9b739251/"}>
 						<ContactCard
+							className={
+								"bg-[var(--bg-card-neutral)] hover:bg-[var(--bg-card-neutral-hover)] text-left"
+							}
 							label={"Linkedin"}
 							value={"Gaetano Castiglia"}
 							icon={
@@ -180,8 +203,6 @@ export const AboutHero = ({
 									</defs>
 								</svg>
 							}
-							backgroundColor={"#F0F0F0"}
-							className={"text-left"}
 							childrenClassName={"gap-40"}
 						/>
 					</a>

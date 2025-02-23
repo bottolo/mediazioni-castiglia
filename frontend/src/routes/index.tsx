@@ -1,30 +1,68 @@
 import { Card } from "@/components/Card.tsx";
 import { HomeHero } from "@/components/HomeHero.tsx";
+import { LeafletMap } from "@/components/LeafletMap.tsx";
 import { Section } from "@/components/Section.tsx";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
+import { useImages } from "@/hooks/use-images.ts";
+import { useIsMobile } from "@/hooks/use-is-mobile.ts";
+import { cn } from "@/utils/cn.ts";
+import { experiences } from "@/utils/experiences.ts";
 import { createFileRoute } from "@tanstack/react-router";
+
+import Calendar from "@/components/calendar/Calendar.tsx";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export const Route = createFileRoute("/")({
 	component: Index,
 });
 
 function Index() {
+	const isMobile = useIsMobile();
+	const {
+		data: awards,
+		isLoading: isLoadingAwards,
+		error: awardsError,
+	} = useImages({
+		queryKeys: ["awards"],
+		folder: "Awards",
+	});
+
+	const {
+		data: gallery,
+		isLoading: isLoadingGallery,
+		error: galleryError,
+	} = useImages({
+		queryKeys: ["gallery"],
+		folder: "Gallery",
+	});
+
 	return (
-		<>
+		<div className={"space-y-12"}>
 			<HomeHero
 				title={"Gaetano Castiglia"}
 				subtitle={"Consulente del credito e assicurativo"}
 				description={
-					"Scopri il mutuo che si adatta alle tue esigenze attraverso una consulenza personalizzata. Lavorerò al tuo fianco per farti risparmiare tempo, semplificare la raccolta documentale e presentarti il prodotto creditizio più conveniente grazie alle numerose convenzioni con i nostri partner bancari."
+					"Lavoro al tuo fianco per farti risparmiare tempo, semplificare la raccolta di documenti e presentarti i prodotti più convenienti."
 				}
 				email={"gaetano.castiglia@24max.it"}
 				phone={"+39 334 1058956"}
 			/>
+
+			<Section
+				id={"calendar"}
+				title={"Quando trovarmi"}
+				subtitle={
+					"Consulta la mia agenda per trovare il momento migliore per te in cui contattarmi"
+				}
+			>
+				<Calendar />
+			</Section>
 			<Section
 				id={"services"}
 				title={"Servizi"}
 				subtitle={"Cosa offro ai miei clienti"}
 				childrenStyle={
-					"grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-[1rem] md:px-0"
+					"grid grid-cols-1 md:grid-cols-3 gap-12 w-full px-[1rem] md:px-0"
 				}
 			>
 				<Card
@@ -96,6 +134,131 @@ function Index() {
 					}
 				/>
 			</Section>
-		</>
+			<Section
+				id={"location"}
+				title={"Dove trovarmi"}
+				subtitle={"Lavoro in più località: cerca la sede più vicina a te."}
+				childrenStyle={"z-1"}
+			>
+				<LeafletMap />
+			</Section>
+			<Section
+				id="awards"
+				title="Riconoscimenti"
+				subtitle="Cosa ho ottenuto nel corso degli anni"
+				childrenStyle="px-4 md:px-0 w-screen md:w-full"
+			>
+				{awardsError && <p>Errore: {awardsError.message}</p>}
+				{isLoadingAwards && (
+					<ScrollArea className="w-full whitespace-nowrap">
+						<div className="flex gap-4">
+							{[...Array(6)].map((index) => (
+								<Skeleton
+									key={index}
+									className="h-64 w-72 flex-none rounded-none"
+								/>
+							))}
+						</div>
+						<ScrollBar orientation="horizontal" />
+					</ScrollArea>
+				)}
+				{awards && (
+					<div className="relative">
+						<ScrollArea className="w-full whitespace-nowrap">
+							<div className="flex gap-4 pb-4">
+								{awards.map((award, _) => (
+									<div
+										key={award.name}
+										className="flex-none h-64 w-72 overflow-hidden border border-gray-300"
+									>
+										<img
+											src={award.data}
+											alt={award.name}
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								))}
+							</div>
+							<ScrollBar orientation="horizontal" />
+						</ScrollArea>
+						<div className="pointer-events-none absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent" />
+						<div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent" />
+					</div>
+				)}
+			</Section>
+			<Section
+				id={"experience"}
+				title={"Esperienza"}
+				subtitle={"La mia storia fino ad oggi"}
+				childrenStyle={"px-4 md:px-0"}
+			>
+				<div className={"flex flex-col gap-8 md:gap-4"}>
+					{experiences.map((experience, _) => (
+						<div
+							key={experience?.title}
+							className={"flex flex-col md:flex-row gap-4"}
+						>
+							<img
+								alt={experience?.title}
+								className={cn(
+									"h-[100px] w-[300px] object-contain border border-gray-300 flex-shrink-0 ",
+									experience?.className,
+								)}
+								src={experience?.image}
+							/>
+							<div className={"flex flex-col justify-between md:py-1"}>
+								<p className={"sm"}>{experience?.date}</p>
+								<p className={"lg font-semibold"}>{experience?.title}</p>
+								<p>{experience?.company}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</Section>
+			<Section
+				id="gallery"
+				title="Gallery"
+				subtitle="Interazione con clienti e collaboratori, sempre"
+				childrenStyle="px-4 pb-4 md:px-0 w-screen md:w-full"
+			>
+				{galleryError && <p>Errore: {galleryError?.message}</p>}
+				{isLoadingGallery && (
+					<ScrollArea className="w-full whitespace-nowrap">
+						<div className="flex gap-4">
+							{[...Array(6)].map((index) => (
+								<Skeleton
+									key={index}
+									className="h-64 w-72 flex-none rounded-none"
+								/>
+							))}
+						</div>
+						<ScrollBar orientation="horizontal" />
+					</ScrollArea>
+				)}
+				{gallery && (
+					<div className="relative">
+						<ScrollArea className="w-full whitespace-nowrap">
+							<div className="flex gap-4">
+								{gallery.map((item, index) => (
+									<div
+										key={item.name}
+										className="flex-none h-64 w-72 overflow-hidden border border-gray-300"
+									>
+										<img
+											src={item.data}
+											alt={item.name}
+											className="w-full h-full object-cover"
+										/>
+									</div>
+								))}
+							</div>
+							<ScrollBar orientation="horizontal" />
+						</ScrollArea>
+						<div className="pointer-events-none absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent" />
+						<div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent" />
+					</div>
+				)}
+			</Section>
+		</div>
 	);
 }

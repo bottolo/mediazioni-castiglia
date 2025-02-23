@@ -25,7 +25,7 @@ export const MenuButton = () => {
 				<DrawerTrigger>
 					<button
 						className={cn(
-							"px-4 py-2.5 rounded-sm cursor-pointer bg-black text-white flex flex-row gap-2 items-center",
+							"px-4 py-2.5 rounded-sm cursor-pointer bg-black text-white flex flex-row gap-2 items-center font-semibold",
 						)}
 						type="button"
 					>
@@ -87,6 +87,9 @@ export const MenuButton = () => {
 								</DrawerClose>
 								<p className={"text-left mt-4 text-gray-500"}>Come trovarmi</p>
 								<ContactCard
+									className={
+										"text-left bg-[var(--bg-card-email)] hover:bg-[var(--bg-card-email-hover)]"
+									}
 									label={"Email"}
 									value={"gaetano.castiglia@24max.it"}
 									icon={
@@ -103,35 +106,8 @@ export const MenuButton = () => {
 											/>
 										</svg>
 									}
-									backgroundColor={"var(--bg-email)"}
-									className={"text-left"}
 									onClick={async (e) => {
 										e.preventDefault();
-
-										// await navigator.clipboard.writeText(
-										// 	"gaetano.castiglia@24max.it",
-										// );
-										//
-										// toast({
-										// 	title: <h4>Email copiata negli appunti</h4>,
-										// 	description: (
-										// 		<p className={"sm text-gray-500"}>
-										// 			gaetano.castiglia@24max.it
-										// 		</p>
-										// 	),
-										// 	action: (
-										// 		<button
-										// 			className={
-										// 				"absolute right-0 p-2.5 bg-black font-bold w-fit text-white rounded-md cursor-pointer"
-										// 			}
-										// 			onClick={() => {
-										// 				dismiss();
-										// 			}}
-										// 		>
-										// 			Chiudi
-										// 		</button>
-										// 	),
-										// });
 
 										window.location.href = "mailto:gaetano.castiglia@24max.it";
 									}}
@@ -141,8 +117,8 @@ export const MenuButton = () => {
 									value={"+39 334 1058956"}
 									icon={
 										<svg
-											width="20"
-											height="20"
+											width="24"
+											height="24"
 											viewBox="0 0 24 24"
 											fill="none"
 											xmlns="http://www.w3.org/2000/svg"
@@ -186,17 +162,32 @@ export const MenuButton = () => {
 											</defs>
 										</svg>
 									}
-									backgroundColor={"var(--bg-phone)"}
-									className={"text-left"}
+									className={
+										"text-left bg-[var(--bg-card-phone)] hover:bg-[var(--bg-card-phone-hover)]"
+									}
 									onClick={async () => {
-										await navigator.clipboard.writeText("+39 334 1058956");
+										await navigator.clipboard.writeText("+39 334 1058 956");
 
-										toast("Event has been created", {
-											action: {
-												label: "Undo",
-												onClick: () => console.log("Undo"),
-											},
-										});
+										toast.custom((id) => (
+											<div
+												className={
+													"flex flex-col bg-white p-4 rounded-sm md:w-[350px]"
+												}
+											>
+												<p className="lg font-semibold">+39 334 1058 956</p>
+												<p className="sm text-gray-500">
+													Telefono copiato negli appunti
+												</p>
+												<button
+													className="absolute top-2 right-2 cursor-pointer"
+													onClick={async () => {
+														toast.dismiss(id);
+													}}
+												>
+													<XIcon size={18} />
+												</button>
+											</div>
+										));
 									}}
 								/>
 								<a href={"https://www.facebook.com/mediazionicastiglia"}>
@@ -228,8 +219,9 @@ export const MenuButton = () => {
 												</defs>
 											</svg>
 										}
-										backgroundColor={"#F0F0F0"}
-										className={"text-left"}
+										className={
+											"text-left bg-[var(--bg-card-neutral)] hover:bg-[var(--bg-card-neutral-hover)]"
+										}
 									/>
 								</a>
 								<a
@@ -265,8 +257,9 @@ export const MenuButton = () => {
 												</defs>
 											</svg>
 										}
-										backgroundColor={"#F0F0F0"}
-										className={"text-left"}
+										className={
+											"text-left bg-[var(--bg-card-neutral)] hover:bg-[var(--bg-card-neutral-hover)]"
+										}
 									/>
 								</a>
 							</div>

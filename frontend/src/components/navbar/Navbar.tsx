@@ -5,7 +5,7 @@ import { RightSection } from "@/components/navbar/components/RightSection.tsx";
 
 export const Navbar = () => {
 	return (
-		<nav className="flex flex-row items-center px-4 md:px-[12rem] py-[0.9rem] w-full">
+		<nav className="flex flex-row items-center py-[0.9rem] justify-between md:w-[1034px]">
 			<LeftSection />
 			<MiddleSection />
 			<RightSection />
