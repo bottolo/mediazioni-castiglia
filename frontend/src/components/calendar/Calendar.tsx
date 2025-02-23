@@ -1,43 +1,7 @@
+import { cn } from "@/utils/cn.ts";
+import _ from "lodash";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import React, { useState } from "react";
-
-// Date utilities
-const getDaysInMonth = (year: number, month: number) =>
-	new Date(year, month + 1, 0).getDate();
-const getFirstDayOfMonth = (year: number, month: number) =>
-	new Date(year, month, 1).getDay();
-const isSameDay = (date1: Date, date2: Date) =>
-	date1.getDate() === date2.getDate() &&
-	date1.getMonth() === date2.getMonth() &&
-	date1.getFullYear() === date2.getFullYear();
-
-const getWeekDays = (date: Date) => {
-	const sunday = new Date(date);
-	sunday.setDate(date.getDate() - date.getDay());
-	return Array.from({ length: 7 }, (_, i) => {
-		const day = new Date(sunday);
-		day.setDate(sunday.getDate() + i);
-		return day;
-	});
-};
-
-const mockEvents = [
-	{
-		id: "1",
-		summary: "Client Meeting",
-		description: "Discussion about mortgage options",
-		start: { dateTime: "2025-02-23T10:00:00" },
-		end: { dateTime: "2025-02-23T11:00:00" },
-		color: "#4285f4",
-	},
-	{
-		id: "2",
-		summary: "Loan Review",
-		description: "Annual review of loan portfolio",
-		start: { dateTime: "2025-02-24T14:00:00" },
-		end: { dateTime: "2025-02-24T15:30:00" },
-		color: "#34a853",
-	},
-];
 
 const MONTHS = [
 	"Gennaio",
@@ -56,105 +20,177 @@ const MONTHS = [
 
 const DAYS = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
 
-const ViewSelector = ({ currentView, onViewChange }) => (
-	<div className="flex gap-2 mb-4">
-		{["day", "week", "month"].map((view) => (
-			<button
-				type={"button"}
-				key={view}
-				onClick={() => onViewChange(view)}
-				className={`px-4 py-2 rounded-lg ${
-					currentView === view
-						? "bg-blue-600 text-white"
-						: "bg-gray-100 hover:bg-gray-200"
-				}`}
-			>
-				{view === "day" ? "Giorno" : view === "week" ? "Settimana" : "Mese"}
-			</button>
-		))}
-	</div>
-);
+const mockEvents = [
+	{
+		id: "1",
+		summary: "Client Meeting",
+		description: "Discussion about mortgage options",
+		start: { dateTime: "2025-02-23T10:00:00" },
+		end: { dateTime: "2025-02-23T15:00:00" },
+		color: "#4285f4",
+	},
+	{
+		id: "2",
+		summary: "Loan Review",
+		description: "Annual review of loan portfolio",
+		start: { dateTime: "2025-02-24T14:00:00" },
+		end: { dateTime: "2025-02-24T15:30:00" },
+		color: "#34a853",
+	},
+	{
+		id: "3",
+		summary: "Loan Review",
+		description: "Annual review of loan portfolio",
+		start: { dateTime: "2025-02-24T15:00:00" },
+		end: { dateTime: "2025-02-24T16:30:00" },
+		color: "#34a853",
+	},
+	{
+		id: "4",
+		summary: "Loan Review",
+		description: "Annual review of loan portfolio",
+		start: { dateTime: "2025-02-24T16:00:00" },
+		end: { dateTime: "2025-02-24T17:30:00" },
+		color: "#34a853",
+	},
+];
 
-const MonthView = ({ currentDate, events }) => {
-	const year = currentDate.getFullYear();
-	const month = currentDate.getMonth();
-	const daysInMonth = getDaysInMonth(year, month);
-	const firstDayOfMonth = getFirstDayOfMonth(year, month);
-	const today = new Date();
+const DateUtils = {
+	isSameDay: (date1: Date, date2: Date): boolean => {
+		return (
+			date1.getDate() === date2.getDate() &&
+			date1.getMonth() === date2.getMonth() &&
+			date1.getFullYear() === date2.getFullYear()
+		);
+	},
 
-	const days = Array.from({ length: 42 }, (_, i) => {
-		const dayNumber = i - firstDayOfMonth + 1;
-		const isCurrentMonth = dayNumber > 0 && dayNumber <= daysInMonth;
-		const date = new Date(year, month, dayNumber);
+	getWeekDays: (date: Date): Date[] => {
+		const sunday = new Date(date);
+		sunday.setDate(date.getDate() - date.getDay());
+		return _.range(7).map((i) => {
+			const day = new Date(sunday);
+			day.setDate(sunday.getDate() + i);
+			return day;
+		});
+	},
+
+	formatTime: (date: Date): string => {
+		return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+	},
+
+	getEventDuration: (start: Date, end: Date): number => {
+		return (end.getTime() - start.getTime()) / (1000 * 60);
+	},
+
+	getEventHeight: (start: Date, end: Date): number => {
+		const durationInMinutes = DateUtils.getEventDuration(start, end);
+		return (durationInMinutes / 60) * 100; // Convert to percentage of hour
+	},
+
+	calculateEventStyle: (event: Event): { top: string; height: string } => {
+		const startTime = new Date(event.start.dateTime);
+		const endTime = new Date(event.end.dateTime);
+		const minutesFromTop = startTime.getMinutes();
+		const height = DateUtils.getEventHeight(startTime, endTime);
 
 		return {
-			dayNumber,
-			isCurrentMonth,
-			date,
-			events: events.filter((event) =>
-				isSameDay(new Date(event.start.dateTime), date),
-			),
+			top: `${minutesFromTop}%`,
+			height: `${height}%`,
 		};
-	});
+	},
+};
 
-	return (
-		<div className="grid grid-cols-7 gap-1">
-			{DAYS.map((day) => (
-				<div key={day} className="p-2 text-center font-semibold">
-					{day}
+interface Event {
+	id: string;
+	summary: string;
+	description: string;
+	start: { dateTime: string };
+	end: { dateTime: string };
+	color: string;
+}
+
+interface ViewProps {
+	currentDate: Date;
+	events: Event[];
+}
+
+const WeekView: React.FC<ViewProps> = ({ currentDate, events }) => {
+	const weekDays = DateUtils.getWeekDays(currentDate);
+	const hours = _.range(24);
+	const today = new Date();
+
+	const MobileWeekView = () => (
+		<div className="md:hidden grid grid-cols-8 divide-y divide-x divide-gray-300">
+			<div className="p-1" />
+			{weekDays.map((day) => (
+				<div key={day.toString()} className="p-1 text-center">
+					<p className="lg font-semibold">
+						{DAYS[day.getDay()].substring(0, 1)}
+					</p>
+					<p
+						className={cn(
+							"sm",
+							DateUtils.isSameDay(day, today) ? "text-blue-600" : "",
+						)}
+					>
+						{day.getDate()}
+					</p>
 				</div>
 			))}
-			{days.map((day, index) => (
-				<div
-					key={index}
-					className={`min-h-24 p-2 border ${
-						!day.isCurrentMonth ? "bg-gray-50 text-gray-400" : "bg-white"
-					} ${
-						isSameDay(day.date, today) ? "border-blue-600" : "border-gray-200"
-					}`}
-				>
-					<div className="font-semibold mb-1">
-						{day.isCurrentMonth ? day.dayNumber : ""}
-					</div>
-					<div className="space-y-1">
-						{day.events.map(
-							(event: {
-								id: React.Key | null | undefined;
-								color: string;
-								start: { dateTime: string | number | Date };
-								summary: any;
-							}) => (
-								<div
-									key={event.id}
-									className="text-xs p-1 rounded truncate"
-									style={{
-										backgroundColor: `${event.color}20`,
-										color: event.color,
-									}}
-								>
-									{`${new Date(event.start.dateTime).getHours()}:${String(new Date(event.start.dateTime).getMinutes()).padStart(2, "0")} ${event.summary}`}
-								</div>
-							),
-						)}
-					</div>
-				</div>
+			{hours.map((hour) => (
+				<React.Fragment key={hour}>
+					<p className="sm pr-2 pt-1 text-right  text-gray-500 sticky left-0 bg-white">
+						{`${String(hour).padStart(2, "0")}:00`}
+					</p>
+					{weekDays.map((day) => {
+						const dayEvents = events.filter((event) => {
+							const eventDate = new Date(event.start.dateTime);
+							return (
+								DateUtils.isSameDay(eventDate, day) &&
+								eventDate.getHours() === hour
+							);
+						});
+
+						return (
+							<div key={day.toString()} className="min-h-16 relative">
+								{dayEvents.map((event) => {
+									const style = DateUtils.calculateEventStyle(event);
+									return (
+										<div
+											key={event.id}
+											className="absolute w-full px-1 overflow-hidden rounded-md"
+											style={{
+												backgroundColor: `${event.color}20`,
+												color: event.color,
+												top: style.top,
+												height: style.height,
+											}}
+										>
+											<p className="truncate font-medium">{event.summary}</p>
+											<p className="sm truncate">
+												{DateUtils.formatTime(new Date(event.start.dateTime))} -
+												{DateUtils.formatTime(new Date(event.end.dateTime))}
+											</p>
+										</div>
+									);
+								})}
+							</div>
+						);
+					})}
+				</React.Fragment>
 			))}
 		</div>
 	);
-};
 
-const WeekView = ({ currentDate, events }) => {
-	const weekDays = getWeekDays(currentDate);
-	const hours = Array.from({ length: 24 }, (_, i) => i);
-	const today = new Date();
-
-	return (
-		<div className="grid grid-cols-8 gap-1">
+	const DesktopWeekView = () => (
+		<div className="hidden md:grid md:grid-cols-8 divide-x divide-y divide-gray-300">
 			<div className="p-2" />
 			{weekDays.map((day) => (
 				<div key={day.toString()} className="p-2 text-center font-semibold">
 					<div>{DAYS[day.getDay()]}</div>
-					<div className={isSameDay(day, today) ? "text-blue-600" : ""}>
+					<div
+						className={DateUtils.isSameDay(day, today) ? "text-blue-600" : ""}
+					>
 						{day.getDate()}
 					</div>
 				</div>
@@ -166,48 +202,38 @@ const WeekView = ({ currentDate, events }) => {
 						{`${String(hour).padStart(2, "0")}:00`}
 					</div>
 					{weekDays.map((day) => {
-						const dayEvents = events.filter(
-							(event: { start: { dateTime: string | number | Date } }) => {
-								const eventDate = new Date(event.start.dateTime);
-								return (
-									isSameDay(eventDate, day) && eventDate.getHours() === hour
-								);
-							},
-						);
+						const dayEvents = events.filter((event) => {
+							const eventDate = new Date(event.start.dateTime);
+							return (
+								DateUtils.isSameDay(eventDate, day) &&
+								eventDate.getHours() === hour
+							);
+						});
 
 						return (
-							<div key={day.toString()} className="border min-h-16 relative">
-								{dayEvents.map(
-									(event: {
-										id: React.Key | null | undefined;
-										color: any;
-										start: { dateTime: string | number | Date };
-										summary:
-											| string
-											| number
-											| boolean
-											| React.ReactElement<
-													any,
-													string | React.JSXElementConstructor<any>
-											  >
-											| Iterable<React.ReactNode>
-											| React.ReactPortal
-											| null
-											| undefined;
-									}) => (
+							<div key={day.toString()} className="min-h-16 relative">
+								{dayEvents.map((event) => {
+									const style = DateUtils.calculateEventStyle(event);
+									return (
 										<div
 											key={event.id}
-											className="absolute w-full p-1 text-xs rounded"
+											className="absolute w-full p-1 text-xs rounded-md"
 											style={{
 												backgroundColor: `${event.color}20`,
 												color: event.color,
-												top: `${new Date(event.start.dateTime).getMinutes()}%`,
+												top: style.top,
+												height: style.height,
+												overflow: "hidden",
 											}}
 										>
-											{event.summary}
+											<p className="font-medium truncate">{event.summary}</p>
+											<p className="sm truncate">
+												{DateUtils.formatTime(new Date(event.start.dateTime))} -
+												{DateUtils.formatTime(new Date(event.end.dateTime))}
+											</p>
 										</div>
-									),
-								)}
+									);
+								})}
 							</div>
 						);
 					})}
@@ -215,64 +241,56 @@ const WeekView = ({ currentDate, events }) => {
 			))}
 		</div>
 	);
+
+	return (
+		<>
+			<MobileWeekView />
+			<DesktopWeekView />
+		</>
+	);
 };
 
-const DayView = ({ currentDate, events }) => {
-	const hours = Array.from({ length: 24 }, (_, i) => i);
-	const dayEvents = events.filter(
-		(event: { start: { dateTime: string | number | Date } }) =>
-			isSameDay(new Date(event.start.dateTime), currentDate),
+const DayView: React.FC<ViewProps> = ({ currentDate, events }) => {
+	const hours = _.range(24);
+	const dayEvents = _.filter(events, (event) =>
+		DateUtils.isSameDay(new Date(event.start.dateTime), currentDate),
 	);
 
 	return (
-		<div className="flex flex-col divide-y">
+		<div className="flex flex-col divide-y divide-gray-300">
 			{hours.map((hour) => (
-				<div key={hour} className="flex min-h-16">
-					<div className="w-16 py-2 text-right pr-4 text-sm text-gray-500">
+				<div key={hour} className="flex min-h-14 md:min-h-16">
+					<div className="w-12 md:w-16 py-2 text-right pr-2 md:pr-4 text-xs md:text-sm text-gray-500">
 						{`${String(hour).padStart(2, "0")}:00`}
 					</div>
-					<div className="flex-1 border-l relative">
-						{dayEvents
+					<div className="flex-1 border-l border-gray-300 relative">
+						{_.chain(dayEvents)
 							.filter(
-								(event: { start: { dateTime: string | number | Date } }) =>
-									new Date(event.start.dateTime).getHours() === hour,
+								(event) => new Date(event.start.dateTime).getHours() === hour,
 							)
-							.map(
-								(event: {
-									id: React.Key | null | undefined;
-									color: string;
-									start: { dateTime: string | number | Date };
-									summary:
-										| string
-										| number
-										| boolean
-										| React.ReactElement<
-												any,
-												string | React.JSXElementConstructor<any>
-										  >
-										| Iterable<React.ReactNode>
-										| React.ReactPortal
-										| null
-										| undefined;
-									end: { dateTime: string | number | Date };
-								}) => (
+							.map((event) => {
+								const style = DateUtils.calculateEventStyle(event);
+								return (
 									<div
 										key={event.id}
-										className="absolute w-full p-2 rounded-lg"
+										className="absolute w-full p-1 md:p-2 rounded-md"
 										style={{
 											backgroundColor: `${event.color}20`,
 											color: event.color,
-											top: `${new Date(event.start.dateTime).getMinutes()}%`,
+											top: style.top,
+											height: style.height,
+											overflow: "hidden",
 										}}
 									>
-										<div className="font-semibold">{event.summary}</div>
-										<div className="text-sm">
-											{`${new Date(event.start.dateTime).getHours()}:${String(new Date(event.start.dateTime).getMinutes()).padStart(2, "0")} - 
-                    ${new Date(event.end.dateTime).getHours()}:${String(new Date(event.end.dateTime).getMinutes()).padStart(2, "0")}`}
-										</div>
+										<h4 className="font-semibold truncate">{event.summary}</h4>
+										<p className="sm truncate">
+											{`${DateUtils.formatTime(new Date(event.start.dateTime))} - 
+                      ${DateUtils.formatTime(new Date(event.end.dateTime))}`}
+										</p>
 									</div>
-								),
-							)}
+								);
+							})
+							.value()}
 					</div>
 				</div>
 			))}
@@ -280,55 +298,67 @@ const DayView = ({ currentDate, events }) => {
 	);
 };
 
-const Calendar = () => {
+const Calendar: React.FC = () => {
 	const [currentDate, setCurrentDate] = useState(new Date());
-	const [currentView, setCurrentView] = useState("month");
+	const [currentView, setCurrentView] = useState("week");
 
-	const navigateDate = (direction: string) => {
+	const navigateDate = (direction: "next" | "prev") => {
 		const newDate = new Date(currentDate);
-		if (currentView === "month") {
-			newDate.setMonth(
-				currentDate.getMonth() + (direction === "next" ? 1 : -1),
-			);
-		} else if (currentView === "week") {
-			newDate.setDate(currentDate.getDate() + (direction === "next" ? 7 : -7));
+		const offset = direction === "next" ? 1 : -1;
+
+		if (currentView === "week") {
+			newDate.setDate(currentDate.getDate() + 7 * offset);
 		} else {
-			newDate.setDate(currentDate.getDate() + (direction === "next" ? 1 : -1));
+			newDate.setDate(currentDate.getDate() + offset);
 		}
+
 		setCurrentDate(newDate);
 	};
 
 	return (
 		<div className="w-full max-w-6xl mx-auto py-2">
-			<div className="flex justify-between items-center mb-4">
-				<div className="flex items-center gap-4">
+			<div className="flex flex-row justify-between items-center mb-4 gap-2">
+				<div className="flex flex-row items-center justify-between gap-2 w-48 md:w-64">
 					<button
+						type="button"
 						onClick={() => navigateDate("prev")}
-						className="p-2 hover:bg-gray-100 rounded-full"
+						className="cursor-pointer p-2 hover:bg-[var(--bg-neutral-hover)] rounded-md w-8 h-8 flex items-center justify-center"
 					>
-						←
+						<ArrowLeftIcon />
 					</button>
-					<h2 className="text-xl font-semibold">
+					<h2 className="text-sm md:text-xl font-semibold flex-shrink-0 text-center">
 						{`${MONTHS[currentDate.getMonth()]} ${currentDate.getFullYear()}`}
 					</h2>
 					<button
+						type="button"
 						onClick={() => navigateDate("next")}
-						className="p-2 hover:bg-gray-100 rounded-full"
+						className="cursor-pointer p-2 hover:bg-[var(--bg-neutral-hover)] rounded-md w-8 h-8 flex items-center justify-center"
 					>
-						→
+						<ArrowRightIcon />
 					</button>
 				</div>
-				<ViewSelector currentView={currentView} onViewChange={setCurrentView} />
+				<div className="flex flex-row items-center gap-1 md:gap-2 ">
+					{["week", "day"].map((view) => (
+						<button
+							type="button"
+							key={view}
+							onClick={() => setCurrentView(view)}
+							className={`cursor-pointer px-2 md:px-4 py-2 md:text-base rounded-md ${
+								currentView === view
+									? "bg-black text-white"
+									: "hover:bg-[var(--bg-neutral-hover)]"
+							}`}
+						>
+							{view === "day" ? "Giorno" : "Settimana"}
+						</button>
+					))}
+				</div>{" "}
 			</div>
 
-			<div className="bg-white rounded-lg shadow overflow-x-auto">
-				{currentView === "month" && (
-					<MonthView currentDate={currentDate} events={mockEvents} />
-				)}
-				{currentView === "week" && (
+			<div className="bg-white rounded-lg overflow-x-auto">
+				{currentView === "week" ? (
 					<WeekView currentDate={currentDate} events={mockEvents} />
-				)}
-				{currentView === "day" && (
+				) : (
 					<DayView currentDate={currentDate} events={mockEvents} />
 				)}
 			</div>

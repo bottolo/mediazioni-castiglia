@@ -4,7 +4,6 @@ import { LeafletMap } from "@/components/LeafletMap.tsx";
 import { Section } from "@/components/Section.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { useImages } from "@/hooks/use-images.ts";
-import { useIsMobile } from "@/hooks/use-is-mobile.ts";
 import { cn } from "@/utils/cn.ts";
 import { experiences } from "@/utils/experiences.ts";
 import { createFileRoute } from "@tanstack/react-router";
@@ -17,7 +16,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-	const isMobile = useIsMobile();
 	const {
 		data: awards,
 		isLoading: isLoadingAwards,
@@ -54,6 +52,7 @@ function Index() {
 				subtitle={
 					"Consulta la mia agenda per trovare il momento migliore per te in cui contattarmi"
 				}
+				childrenStyle={"px-4 md:px-0"}
 			>
 				<Calendar />
 			</Section>

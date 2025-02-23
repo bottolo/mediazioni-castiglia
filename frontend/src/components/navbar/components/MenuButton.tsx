@@ -171,7 +171,7 @@ export const MenuButton = () => {
 										toast.custom((id) => (
 											<div
 												className={
-													"flex flex-col bg-white p-4 rounded-sm md:w-[350px]"
+													"flex flex-col bg-white p-4 rounded-md md:w-[350px]"
 												}
 											>
 												<p className="lg font-semibold">+39 334 1058 956</p>
