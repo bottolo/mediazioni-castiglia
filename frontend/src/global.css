@@ -1,65 +1,81 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 :root {
 	--h1-font-size: 48px;
 	--h1-mobile-font-size: 40px;
 
-	--h2-font-size: 36px;
-	--h2-mobile-font-size: 32px;
+	--h2-font-size: 28px;
+	--h2-mobile-font-size: 26px;
 
-	--h3-font-size: 24px;
-	--h3-mobile-font-size: 24px;
+	--h3-font-size: 22px;
+	--h3-mobile-font-size: 20px;
 
 	--h4-font-size: 16px;
-	--h4-mobile-font-size: 16px;
+	--h4-mobile-font-size: 14px;
 
-	--body-lg-font-size: 20px;
+	--body-lg-font-size: 18px;
 	--body-md-font-size: 16px;
 
-	--body-mobile-lg-font-size: 18px;
+	--body-mobile-lg-font-size: 16px;
 	--body-mobile-md-font-size: 16px;
 	--body-mobile-sm-font-size: 14px;
 
-	--subheading-font-size: 32px;
+	--subheading-font-size: 28px;
 	--subheading-mobile-font-size: 24px;
 
-	--h1-line-height: 64px;
+	--h1-line-height: 52px;
 	--h1-mobile-line-height: 48px;
 
-	--h2-line-height: 40px;
-	--h2-mobile-line-height: 40px;
+	--h2-line-height: 32px;
+	--h2-mobile-line-height: 28px;
 
 	--h3-line-height: 32px;
 	--h3-mobile-line-height: 32px;
 
 	--h4-line-height: 24px;
-	--h4-mobile-line-height: 24px;
+	--h4-mobile-line-height: 20px;
 
-	--body-lg-line-height: 28px;
-	--body-md-line-height: 20px;
+	--body-lg-line-height: 26px;
+	--body-md-line-height: 24px;
 
 	--body-mobile-lg-line-height: 24px;
 	--body-mobile-md-line-height: 20px;
 	--body-mobile-sm-line-height: 20px;
 
-	--subheading-line-height: 40px;
-	--subheading-mobile-line-height: 36px;
+	--subheading-line-height: 36px;
+	--subheading-mobile-line-height: 32px;
 
 	--bg-neutral-hover: #dcdcdc;
 
-	--bg-card-email: #deecfd;
-	--bg-card-email-hover: #c8dffc;
+	--bg-card-phone-border-from: #a3e493;
+	--bg-card-phone-border-from-hover: #76cf60;
+	--bg-card-phone-border-to: #50b81f;
+	--bg-card-phone-border-to-hover: #197309;
+	--bg-card-phone-from: #dff9d9;
+	--bg-card-phone-from-hover: #c8f2bf;
+	--bg-card-phone-to: #effce9;
+	--bg-card-phone-to-hover: #dff9d8;
 
-	--bg-card-phone: #e1f7e9;
-	--bg-card-phone-hover: #c3f7d9;
+	--bg-card-mail-border-from: #aad1fb;
+	--bg-card-mail-border-from-hover: #6db2fc;
+	--bg-card-mail-border-to: #1563e4;
+	--bg-card-mail-border-to-hover: #024bab;
+	--bg-card-mail-from: #e5f0fc;
+	--bg-card-mail-from-hover: #d2e5fc;
+	--bg-card-mail-to: #f4f9ff;
+	--bg-card-mail-to-hover: #e4f0fc;
 
-	--bg-card-neutral: #f0f0f0;
-	--bg-card-neutral-hover: #dcdcdc;
+	--bg-card-default-border-from: #cdcdcd;
+	--bg-card-default-border-from-hover: #acacac;
+	--bg-card-default-border-to: #636363;
+	--bg-card-default-border-to-hover: #464646;
+	--bg-card-default-from: #e5e5e5;
+	--bg-card-default-from-hover: #e5e5e5;
+	--bg-card-default-to: #f9f9f9;
+	--bg-card-default-to-hover: #f2f2f2;
 
 	--radius-select-item: 4px;
 	--radius-select: 8px;

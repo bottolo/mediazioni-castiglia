@@ -5,7 +5,7 @@ export const MiddleSection = () => {
 	const location = useLocation();
 
 	return (
-		<div className="invisible md:visible flex flex-1 justify-center items-center gap-2 text-sm">
+		<div className="invisible flex flex-1 justify-center items-center gap-2 text-sm">
 			<Link to="/">
 				<button
 					className={cn(

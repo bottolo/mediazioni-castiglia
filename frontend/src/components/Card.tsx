@@ -10,10 +10,10 @@ type CardProps = {
 export const Card = ({ icon, title, description, classname }: CardProps) => {
 	return (
 		<div className={cn("md:py-6 rounded-lg", classname)}>
-			{icon}
+			<img className={"size-12 md:size-18"} src={icon} />
 
-			<h3 className="font-semibold mb-2 mt-4">{title}</h3>
-			<p className="lg">{description}</p>
+			<h3 className="font-semibold mb-2 mt-4 text-gray-700">{title}</h3>
+			<p className="lg text-gray-600">{description}</p>
 		</div>
 	);
 };

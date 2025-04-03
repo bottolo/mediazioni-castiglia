@@ -39,15 +39,16 @@ export const experiences: Experience[] = [
 	},
 	{
 		date: "2014 - 2015",
-		title: "Money 360",
-		company: "Mediatore creditizio in collaborazione",
+		title: "Mediatore creditizio in collaborazione",
+		company: "Money 360",
 		image: "https://www.money360.it/img/logos/logo-money360.png",
 		className: "py-2 px-4",
 	},
 	{
 		date: "2008 - 2013",
-		title: "Barclays",
-		company: "Agente in attività finanziaria",
+		title: "Agente in attività finanziaria",
+
+		company: "Barclays",
 		image: "https://1000logos.net/wp-content/uploads/2016/10/Barclays-Logo.jpg",
 		className: "px-8 py-2",
 	},
