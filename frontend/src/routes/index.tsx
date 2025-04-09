@@ -2,7 +2,6 @@ import { Card } from "@/components/Card.tsx";
 import { Hero } from "@/components/Hero.tsx";
 import { LeafletMap } from "@/components/LeafletMap.tsx";
 import { Section } from "@/components/Section.tsx";
-import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { useImages } from "@/hooks/use-images.ts";
 import { cn } from "@/utils/cn.ts";
 import { experiences } from "@/utils/experiences.ts";
@@ -11,8 +10,11 @@ import mutuo from "@/assets/icons/mutuo.svg";
 import prestiti from "@/assets/icons/prestiti.svg";
 import assicurazioni from "@/assets/icons/assicurazioni.svg";
 
-import Calendar from "@/components/calendar/Calendar.tsx";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Calendar from "@/components/Calendar.tsx";
+import ImageGallery from "@/components/ImageGallery.tsx";
+import SwipeCards from "@/components/SwipeCards.tsx";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
+import { useCalendarEvents } from "@/hooks/use-calendar-events.ts";
 
 export const Route = createFileRoute("/")({
 	component: Index,
@@ -37,8 +39,17 @@ function Index() {
 		folder: "Gallery",
 	});
 
+	const {
+		data: calendarEvents,
+		isLoading: isLoadingCalendarEvents,
+		error: calendarEventsError,
+	} = useCalendarEvents({
+		queryKeys: ["calendar"],
+		folder: "Calendar",
+	});
+
 	return (
-		<div className={"space-y-12"}>
+		<div className={"space-y-12 font-light"}>
 			<Hero
 				title={"Gaetano Castiglia"}
 				subtitle={"Consulente del credito e assicurativo"}
@@ -57,7 +68,7 @@ function Index() {
 				}
 				childrenStyle={"w-full"}
 			>
-				<Calendar />
+				<Calendar events={calendarEvents} />
 			</Section>
 			<Section
 				id={"services"}
@@ -104,43 +115,14 @@ function Index() {
 				subtitle="Cosa ho ottenuto nel corso degli anni"
 				childrenStyle="px-4 md:px-0 w-screen md:w-full"
 			>
-				{awardsError && <p>Errore: {awardsError.message}</p>}
-				{isLoadingAwards && (
-					<ScrollArea className="w-full whitespace-nowrap">
-						<div className="flex gap-4">
-							{[...Array(6)].map((index) => (
-								<Skeleton
-									key={index}
-									className="h-64 w-72 flex-none rounded-none"
-								/>
-							))}
-						</div>
-						<ScrollBar orientation="horizontal" />
-					</ScrollArea>
-				)}
-				{awards && (
-					<div className="relative">
-						<ScrollArea className="w-full whitespace-nowrap">
-							<div className="flex gap-4 pb-4">
-								{awards.map((award, _) => (
-									<div
-										key={award.name}
-										className="flex-none h-64 w-72 overflow-hidden border border-gray-300"
-									>
-										<img
-											src={award.data}
-											alt={award.name}
-											className="w-full h-full object-cover"
-										/>
-									</div>
-								))}
-							</div>
-							<ScrollBar orientation="horizontal" />
-						</ScrollArea>
-						<div className="pointer-events-none absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent" />
-						<div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent" />
-					</div>
-				)}
+				<ImageGallery
+					images={awards}
+					isLoading={isLoadingAwards}
+					error={awardsError}
+					height="h-64"
+					width="w-72"
+					gap="gap-4"
+				/>
 			</Section>
 			<Section
 				id={"experience"}
@@ -148,7 +130,7 @@ function Index() {
 				subtitle={"La mia storia fino ad oggi"}
 				childrenStyle={"px-4 md:px-0"}
 			>
-				<div className={"flex flex-col gap-8 md:gap-4"}>
+				<div className={"flex flex-col gap-8 md:gap-4 "}>
 					{experiences.map((experience, _) => (
 						<div
 							key={experience?.title}
@@ -177,45 +159,29 @@ function Index() {
 				id="gallery"
 				title="Gallery"
 				subtitle="Interazione con clienti e collaboratori, sempre"
-				childrenStyle="px-4 pb-4 md:px-0 w-screen md:w-full"
+				childrenStyle="md:px-0 w-full overflow-hidden"
 			>
 				{galleryError && <p>Errore: {galleryError?.message}</p>}
 				{isLoadingGallery && (
-					<ScrollArea className="w-full whitespace-nowrap">
-						<div className="flex gap-4">
-							{[...Array(6)].map((index) => (
-								<Skeleton
-									key={index}
-									className="h-64 w-72 flex-none rounded-none"
-								/>
-							))}
-						</div>
-						<ScrollBar orientation="horizontal" />
-					</ScrollArea>
-				)}
-				{gallery && (
-					<div className="relative">
-						<ScrollArea className="w-full whitespace-nowrap">
-							<div className="flex gap-4">
-								{gallery.map((item, index) => (
-									<div
-										key={item.name}
-										className="flex-none h-64 w-72 overflow-hidden border border-gray-300"
-									>
-										<img
-											src={item.data}
-											alt={item.name}
-											className="w-full h-full object-cover"
-										/>
-									</div>
-								))}
-							</div>
-							<ScrollBar orientation="horizontal" />
-						</ScrollArea>
-						<div className="pointer-events-none absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent" />
-						<div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent" />
+					<div className={"flex flex-col items-center pt-8"}>
+						{" "}
+						<Skeleton className={"absolute animate-pulse w-80 h-96"} />
+						<Skeleton
+							className={"absolute rotate-4 animate-pulse w-80 h-96 opacity-60"}
+						/>
+						<Skeleton
+							className={
+								"absolute -rotate-8 animate-pulse w-80 h-96 opacity-40"
+							}
+						/>
+						<Skeleton
+							className={
+								"absolute rotate-10 animate-pulse w-80 h-96 opacity-20"
+							}
+						/>
 					</div>
 				)}
+				{gallery && <SwipeCards gallery={gallery} />}
 			</Section>
 		</div>
 	);

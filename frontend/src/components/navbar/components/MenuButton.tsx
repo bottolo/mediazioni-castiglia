@@ -8,17 +8,15 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { cn } from "@/utils/cn";
-import { useLocation } from "@tanstack/react-router";
-import { MenuIcon, SmileIcon, XIcon } from "lucide-react";
-import { toast } from "sonner";
+import { SmileIcon, XIcon } from "lucide-react";
 import mail from "@/assets/icons/mail.svg";
 import whatsapp from "@/assets/icons/whatsapp.svg";
 import linkedin from "@/assets/icons/linkedin.svg";
 import facebook from "@/assets/icons/facebook.svg";
+import { Button } from "@/components/Button.tsx";
+import hamburger from "@/assets/icons/hamburger.svg";
 
 export const MenuButton = () => {
-	const location = useLocation();
 	return (
 		<div
 			className={
@@ -27,14 +25,7 @@ export const MenuButton = () => {
 		>
 			<Drawer>
 				<DrawerTrigger>
-					<button
-						className={cn(
-							"px-4 py-2.5 rounded-sm cursor-pointer bg-black text-white flex flex-row gap-2 items-center font-semibold",
-						)}
-						type="button"
-					>
-						Menu <MenuIcon size={18} />
-					</button>
+					<Button icon={hamburger}>Contatti</Button>
 				</DrawerTrigger>
 				<DrawerContent>
 					<DrawerHeader>
@@ -60,6 +51,18 @@ export const MenuButton = () => {
 						<DrawerDescription>
 							<div className={"flex flex-col gap-4"}>
 								<p className={"text-left mt-4 text-gray-500"}>Come trovarmi</p>
+								{/*<ContactCard*/}
+								{/*	cssVarPrefix={"contact"}*/}
+								{/*	label={"Vuoi contattarmi?"}*/}
+								{/*	value={"Fissiamo un incontro"}*/}
+								{/*	icon={paperplane}*/}
+								{/*	onClick={async (e) => {*/}
+								{/*		e.preventDefault();*/}
+								{/*	}}*/}
+								{/*	labelColor={"text-stone-400"}*/}
+								{/*	textColor={"text-stone-100"}*/}
+								{/*	className={"text-left"}*/}
+								{/*/>{" "}*/}
 								<ContactCard
 									className={"text-left"}
 									label={"Email"}
@@ -72,43 +75,22 @@ export const MenuButton = () => {
 										window.location.href = "mailto:gaetano.castiglia@24max.it";
 									}}
 								/>
-								<ContactCard
-									label={"Whatsapp"}
-									value={"+39 334 1058956"}
-									icon={whatsapp}
-									className={"text-left"}
-									cssVarPrefix={"phone"}
-									onClick={async () => {
-										await navigator.clipboard.writeText("+39 334 1058 956");
-
-										toast.custom((id) => (
-											<div
-												className={
-													"flex flex-col bg-white p-4 rounded-md md:w-[350px]"
-												}
-											>
-												<p className="lg font-semibold">+39 334 1058 956</p>
-												<p className="sm text-gray-500">
-													Telefono copiato negli appunti
-												</p>
-												<button
-													className="absolute top-2 right-2 cursor-pointer"
-													onClick={async () => {
-														toast.dismiss(id);
-													}}
-												>
-													<XIcon size={18} />
-												</button>
-											</div>
-										));
-									}}
-								/>
+								<a href={"whatsapp://send?phone=393341058956"}>
+									<ContactCard
+										label={"Whatsapp"}
+										value={"+39 334 1058956"}
+										icon={whatsapp}
+										className={"text-left"}
+										cssVarPrefix={"phone"}
+									/>
+								</a>
 								<a href={"https://www.facebook.com/mediazionicastiglia"}>
 									<ContactCard
 										label={"Facebook"}
 										value={"mediazionicastiglia"}
 										icon={facebook}
 										className={"text-left"}
+										cssVarPrefix={"default"}
 									/>
 								</a>
 								<a
@@ -121,6 +103,7 @@ export const MenuButton = () => {
 										value={"Gaetano Castiglia"}
 										icon={linkedin}
 										className={"text-left"}
+										cssVarPrefix={"default"}
 									/>
 								</a>
 							</div>

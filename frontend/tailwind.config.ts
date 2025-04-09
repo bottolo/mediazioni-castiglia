@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import scrollbarHide from "tailwind-scrollbar-hide";
+
 export default {
 	darkMode: ["selector", "class"],
 	content: [".index.html", "./src/**/*.{js,jsx,ts,tsx}"],
@@ -54,5 +56,5 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), scrollbarHide],
 };

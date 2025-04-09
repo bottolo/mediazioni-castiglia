@@ -7,7 +7,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@radix-ui/react-select";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import marker from "@/assets/icons/marker.svg";
 
 export const LeafletMap = () => {
@@ -22,7 +22,7 @@ export const LeafletMap = () => {
 	return (
 		<div className="flex flex-col relative h-[600px]">
 			{isMobile ? (
-				<div className="bg-white rounded-lg px-4 py-4">
+				<div className="bg-white px-4 pb-4">
 					<h4 className="mb-2">
 						Scegli una sede ({locations?.length} disponibili)
 					</h4>
@@ -48,9 +48,36 @@ export const LeafletMap = () => {
 										<SelectItem
 											key={loc.name}
 											value={loc.name}
-											className="cursor-pointer select-none items-center px-2 py-3 sm outline-none hover:bg-gray-100 focus:bg-black focus:text-white rounded-md"
+											className="relative cursor-pointer select-none items-center px-2 py-3 sm outline-none rounded-md overflow-hidden"
 										>
-											{loc.name}
+											{selectedLocation === loc.name ? (
+												<div
+													className="absolute inset-0 transition-opacity duration-150"
+													style={{
+														background:
+															"linear-gradient(to top, var(--bg-button-default-from), var(--bg-button-default-to))",
+														zIndex: 0,
+													}}
+												/>
+											) : (
+												<>
+													<div className="absolute inset-0 bg-transparent transition-opacity duration-150" />
+													<div
+														className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-150"
+														style={{ background: "var(--bg-neutral-hover)" }}
+													/>
+												</>
+											)}
+											<span
+												className={`relative z-10 ${selectedLocation === loc.name ? "text-white" : ""}`}
+											>
+												{loc.name}
+											</span>
+											{selectedLocation === loc.name && (
+												<span className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10">
+													<Check className="h-4 w-4 text-white" />
+												</span>
+											)}
 										</SelectItem>
 									))}
 								</SelectGroup>
@@ -76,13 +103,33 @@ export const LeafletMap = () => {
 								<div
 									key={loc.name}
 									onClick={() => handleLocationSelect(loc)}
-									className={`group flex justify-between items-start cursor-pointer p-2.5 rounded-[var(--radius-select-item)] ${
-										selectedLocation === loc.name
-											? "bg-black text-white"
-											: "hover:bg-[var(--bg-neutral-hover)]"
+									className={`group relative flex justify-between items-start cursor-pointer p-2.5 rounded-[var(--radius-select-item)] overflow-hidden ${
+										selectedLocation === loc.name ? "text-white" : "text-black"
 									}`}
 								>
-									<div className="flex flex-col">
+									{selectedLocation !== loc.name && (
+										<>
+											<div className="absolute inset-0 bg-transparent transition-opacity duration-150" />
+
+											<div
+												className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+												style={{ background: "var(--bg-neutral-hover)" }}
+											/>
+										</>
+									)}
+
+									{selectedLocation === loc.name && (
+										<div
+											className="absolute inset-0 transition-opacity duration-300"
+											style={{
+												background:
+													"linear-gradient(to top, var(--bg-button-default-from), var(--bg-button-default-to))",
+											}}
+										/>
+									)}
+
+									{/* Content */}
+									<div className="flex flex-col relative z-10">
 										<p>{loc.name}</p>
 										<p
 											className={`sm ${
@@ -94,8 +141,10 @@ export const LeafletMap = () => {
 											{loc.address}
 										</p>
 									</div>
+
 									{selectedLocation === loc.name && (
 										<svg
+											className="relative z-10"
 											width="14"
 											height="20"
 											viewBox="0 0 14 20"

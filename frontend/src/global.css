@@ -10,7 +10,7 @@
 	--h2-font-size: 28px;
 	--h2-mobile-font-size: 26px;
 
-	--h3-font-size: 22px;
+	--h3-font-size: 24px;
 	--h3-mobile-font-size: 20px;
 
 	--h4-font-size: 16px;
@@ -50,6 +50,26 @@
 
 	--bg-neutral-hover: #dcdcdc;
 
+	--bg-button-default-from: #191919;
+	--bg-button-default-from-hover: #181818;
+	--bg-button-default-to: #464646;
+	--bg-button-default-to-hover: #181818;
+	--bg-button-default-border-from: #898989;
+	--bg-button-default-border-from-hover: #464646;
+	--bg-button-default-border-to: #f0f0f0;
+	--bg-button-default-border-to-hover: #ccc;
+	--bg-button-default-shadow-soft: 0px 5px 9px -4px #00000033;
+
+	--bg-card-contact-from: #191919;
+	--bg-card-contact-from-hover: #181818;
+	--bg-card-contact-to: #464646;
+	--bg-card-contact-to-hover: #181818;
+	--bg-card-contact-border-from: #898989;
+	--bg-card-contact-border-from-hover: #464646;
+	--bg-card-contact-border-to: #f0f0f0;
+	--bg-card-contact-border-to-hover: #ccc;
+	--bg-card-contact-shadow-soft: 0px 5px 9px -4px #00000033;
+
 	--bg-card-phone-border-from: #a3e493;
 	--bg-card-phone-border-from-hover: #76cf60;
 	--bg-card-phone-border-to: #50b81f;
@@ -58,6 +78,7 @@
 	--bg-card-phone-from-hover: #c8f2bf;
 	--bg-card-phone-to: #effce9;
 	--bg-card-phone-to-hover: #dff9d8;
+	--bg-card-phone-shadow-soft: 0px 5px 9px -4px #25910033;
 
 	--bg-card-mail-border-from: #aad1fb;
 	--bg-card-mail-border-from-hover: #6db2fc;
@@ -67,6 +88,7 @@
 	--bg-card-mail-from-hover: #d2e5fc;
 	--bg-card-mail-to: #f4f9ff;
 	--bg-card-mail-to-hover: #e4f0fc;
+	--bg-card-mail-shadow-soft: 0px 5px 9px -4px #1261e433;
 
 	--bg-card-default-border-from: #cdcdcd;
 	--bg-card-default-border-from-hover: #acacac;
@@ -76,6 +98,11 @@
 	--bg-card-default-from-hover: #e5e5e5;
 	--bg-card-default-to: #f9f9f9;
 	--bg-card-default-to-hover: #f2f2f2;
+	--bg-card-default-shadow-soft: 0px 5px 9px -4px #63636326;
+
+	--bg-calendar-current-day: #1261e4;
+	--bg-calendar-occupied-event: #e5e5e5;
+	--text-calendar-occupied-event: #464646;
 
 	--radius-select-item: 4px;
 	--radius-select: 8px;
@@ -176,7 +203,7 @@
 		line-height: var(--body-lg-line-height);
 	}
 
-	.subheading {
+	p.subheading {
 		font-size: var(--subheading-font-size);
 		line-height: var(--subheading-line-height);
 	}

@@ -1,6 +1,7 @@
 import { type Location, locations } from "@/utils/locations";
 import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/use-is-mobile.ts";
 
 interface UseMapReturn {
 	mapRef: React.RefObject<HTMLDivElement>;
@@ -15,7 +16,7 @@ export const useMap = (): UseMapReturn => {
 	const mapInstanceRef = useRef<L.Map | null>(null);
 	const markersRef = useRef<{ [key: string]: L.Marker }>({});
 	const [selectedLocation, setSelectedLocation] = useState("Catania");
-	const [isMobile, setIsMobile] = useState(false);
+	const isMobile = useIsMobile();
 
 	const createCustomMarker = (selected: boolean, imageUrl?: string) => {
 		if (selected) {
@@ -67,25 +68,37 @@ export const useMap = (): UseMapReturn => {
 	};
 
 	useEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
-	}, []);
-
-	useEffect(() => {
 		if (mapInstanceRef.current || !mapRef.current) return;
 
-		const map = L.map(mapRef.current).setView([37.5079, 15.083], 9);
+		if (mapRef.current) {
+			if (!isMobile) mapRef.current.style.borderRadius = "12px";
+			mapRef.current.style.overflow = "hidden";
+		}
+
+		const map = L.map(mapRef.current, {
+			dragging: !isMobile,
+			tap: false,
+		}).setView([37.5079, 15.083], 9);
+
 		mapInstanceRef.current = map;
 
 		L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 			attribution:
 				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 		}).addTo(map);
+
+		if (isMobile) {
+			map.dragging.disable();
+
+			map.touchZoom.enable();
+
+			map.on("touchstart", (e) => {
+				if (e.touches && e.touches.length === 1) {
+					e.preventDefault();
+					return false;
+				}
+			});
+		}
 
 		locations.map((loc) => {
 			const marker = L.marker(loc.coords, {
@@ -117,7 +130,7 @@ export const useMap = (): UseMapReturn => {
 			}
 			markersRef.current = {};
 		};
-	}, []);
+	}, [isMobile]);
 
 	useEffect(() => {
 		updateMarkers();

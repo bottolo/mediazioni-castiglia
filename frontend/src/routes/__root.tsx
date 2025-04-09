@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/sonner.tsx";
 import { useIsMobile } from "@/hooks/use-is-mobile.ts";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "../components/navbar/Navbar.tsx";
 
 export const Route = createRootRoute({
@@ -11,7 +11,7 @@ function RootComponent() {
 	const isMobile = useIsMobile();
 	return (
 		<div className="flex flex-col min-h-screen items-center">
-			<header className="sticky top-0 border-b w-full bg-white z-10">
+			<header className="sticky top-0 border-b w-full bg-white z-9999">
 				<div className={"flex flex-col items-center "}>
 					<Navbar />
 				</div>
