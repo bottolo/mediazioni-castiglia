@@ -103,7 +103,7 @@ function Index() {
 			<Section
 				id={"location"}
 				title={"Dove trovarmi"}
-				subtitle={"Lavoro in più località: cerca la sede più vicina a te."}
+				subtitle={"Lavoro in più località: cerca la sede più vicina a te"}
 				childrenStyle={"z-1"}
 			>
 				<LeafletMap />
