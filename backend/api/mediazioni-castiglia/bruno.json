@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "mediazioni-castiglia",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
