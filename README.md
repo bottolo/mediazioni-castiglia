@@ -26,11 +26,7 @@ consultant's services, availability, experience, and provides multiple ways for 
 - **Framework**: React with TypeScript
 - **Routing**: TanStack Router
 - **Styling**: Tailwind CSS with custom components
-- **UI Components**:
-    - Custom Button and Card components with gradient effects
-    - Leaflet for maps integration
-    - React Spring for animations
-    - React Hook Form for form handling and validation
+- **Custom UI Components**
 - **State Management**: React Hooks
 - **Responsive Design**: Mobile-first approach with responsive layouts
 
@@ -64,14 +60,16 @@ consultant's services, availability, experience, and provides multiple ways for 
 3. Start the development server:
    ```bash
    # Frontend
+   cd /frontend
    bun run dev
 
    # Backend (in a separate terminal)
-   bun run dev:backend
+   bun run dev
    ```
 
 4. Build for production:
    ```bash
+   /frontend
    bun run build
    ```
 
@@ -102,15 +100,6 @@ consultant's services, availability, experience, and provides multiple ways for 
 ├── public/                 # Static assets
 └── package.json            # Project configuration
 ```
-
-## Key Components
-
-- **Hero**: Main landing section with consultant information and contact options
-- **Calendar**: Interactive availability calendar with day/week views
-- **LeafletMap**: Location finder with interactive map
-- **SwipeCards**: Interactive photo gallery with swipe animations
-- **ContactForm**: Form with validation for client inquiries
-- **ImageGallery**: Horizontal scrolling gallery for awards display
 
 ## Customization
 
