@@ -41,4 +41,11 @@ export const locations: Location[] = [
 		image:
 			"https://lh5.googleusercontent.com/p/AF1QipMEQBHA5YZ99MtfXTpL_UteSB9Lvv0WHHtr9ufW=w426-h240-k-no",
 	},
+	{
+		name: "Ragusa",
+		address: "Via Ugo La Malfa, 47-49",
+		coords: [36.928014042484556, 14.714451280952252],
+		image:
+			"https://cms.remax.it/uploads/remote-images/medium/image_cms/08/aHR0cHM6Ly9jZG43Lmdlc3RpbS5iaXovY3VzdG9tLzAxODU4L2ZvdG8vMjAyMi8wNC8yMDIyMDQxNTIwMDgzMy0tNC5qcGc__header.jpg",
+	},
 ];

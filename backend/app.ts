@@ -14,6 +14,7 @@ const apiRoutes = app
 	.route("/mega", megaRoute)
 	.route("/resend", resendRoute)
 	.route("/google", calendarRoute);
+
 app.use("*", serveStatic({ root: "./frontend/dist" }));
 app.use("*", serveStatic({ path: "./frontend/dist/index.html" }));
 

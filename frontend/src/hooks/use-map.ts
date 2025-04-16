@@ -8,7 +8,6 @@ interface UseMapReturn {
 	selectedLocation: string;
 	handleLocationSelect: (location: Location) => void;
 	currentLocation: Location | undefined;
-	isMobile: boolean;
 }
 
 export const useMap = (): UseMapReturn => {

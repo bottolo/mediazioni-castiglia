@@ -33,6 +33,12 @@ const DAYS_FULL = [
 	"Sabato",
 ];
 
+const stripedPatternStyle = {
+	backgroundImage:
+		"repeating-linear-gradient(135deg, transparent 0px, transparent 2px, #CBCBCB 2px, #CBCBCB 4px)",
+	backgroundColor: "rgba(240, 240, 240, 0.8)",
+};
+
 interface EnhancedEvent extends Partial<CalendarEvent> {
 	id: string;
 	summary: string;
@@ -40,15 +46,34 @@ interface EnhancedEvent extends Partial<CalendarEvent> {
 	end: { dateTime: string; timeZone?: string };
 	color: string;
 	backgroundColor: string;
+	isFirstOfDay: boolean;
 }
 
 const enhanceEvents = (events: CalendarEvent[]): EnhancedEvent[] => {
-	return events.map((event) => ({
-		...event,
-		summary: event.summary || "Occupato",
-		color: "var(--text-calendar-occupied-event)",
-		backgroundColor: "var(--bg-calendar-occupied-event)",
-	}));
+	const eventsByDay = _.groupBy(events, (event) => {
+		const date = new Date(event.start.dateTime);
+		return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+	});
+
+	const enhancedEvents: EnhancedEvent[] = [];
+
+	_.map(eventsByDay, (dayEvents) => {
+		const sortedEvents = _.sortBy(dayEvents, (event) =>
+			new Date(event.start.dateTime).getTime(),
+		);
+
+		sortedEvents.map((event, index) => {
+			enhancedEvents.push({
+				...event,
+				summary: event.summary || "",
+				color: "var(--text-calendar-occupied-event)",
+				backgroundColor: "var(--bg-calendar-occupied-event)",
+				isFirstOfDay: index === 0,
+			});
+		});
+	});
+
+	return enhancedEvents;
 };
 
 interface ViewSelectorProps {
@@ -95,23 +120,24 @@ const WeekView: React.FC<ViewProps> = ({ currentDate, events }) => {
 					<div
 						key={day.toString()}
 						className={cn(
-							"p-1 text-center",
+							"p-1 md:p-2 text-center ",
+							DateUtils.isSameDay(day, today) && "bg-[#F4F9FF]",
 							dayIndex < weekDays.length - 1 ? "border-r border-gray-300" : "",
 						)}
 					>
-						<p className="text-xs md:text-sm font-extralight md:font-light">
+						<p className="text-xs md:text-sm font-extralight md:font-light mb-1 md:mb-2">
 							<span className="md:hidden">
 								{DAYS[day.getDay()].substring(0, 1)}
 							</span>
 							<span className="hidden md:inline">{DAYS[day.getDay()]}</span>
 						</p>
 
-						<div className="h-7 flex items-center justify-center">
+						<div className="h-7 flex items-center justify-center ">
 							<p
 								className={cn(
-									"text-md md:text-xl font-light flex items-center justify-center",
+									"text-md md:text-[22px] font-light flex items-center justify-center",
 									DateUtils.isSameDay(day, today) &&
-										"rounded-full h-6 w-6 md:h-7 md:w-7 bg-[var(--bg-calendar-current-day)] text-white ml-0.5",
+										"rounded-full h-7 w-7 md:h-[40px] md:w-[40px] bg-[var(--bg-calendar-current-day)] text-white font-[500] md:ml-0.5",
 								)}
 							>
 								{day.getDate()}
@@ -152,6 +178,7 @@ const WeekView: React.FC<ViewProps> = ({ currentDate, events }) => {
 									className={cn(
 										"relative",
 										"min-h-9 md:min-h-13",
+										DateUtils.isSameDay(day, today) && "bg-[#F4F9FF]",
 										dayIndex < weekDays.length - 1
 											? "border-r border-gray-300"
 											: "",
@@ -165,20 +192,17 @@ const WeekView: React.FC<ViewProps> = ({ currentDate, events }) => {
 										return (
 											<div
 												key={event.id}
-												className="absolute w-full overflow-hidden rounded-md min-h-6 md:min-h-12"
+												className="absolute w-full overflow-hidden min-h-6 md:min-h-12 z-[50]"
 												style={{
-													backgroundColor:
-														event.backgroundColor || "rgba(220, 0, 0, 0.1)",
+													...stripedPatternStyle,
 													color: event.color,
 													top: style.top,
 													height: style.height,
+													backdropFilter: "blur(0)",
 												}}
 											>
 												<div className="p-1 md:p-2">
-													<h4 className="font-medium truncate">
-														{event.summary}
-													</h4>
-													<p className="text-xs truncate hidden md:block mt-1">
+													<p className="text-xs truncate">
 														{DateUtils.formatTime(
 															new Date(event.start.dateTime),
 														)}{" "}
@@ -246,22 +270,19 @@ const DayView: React.FC<ViewProps> = ({ currentDate, events }) => {
 									return (
 										<div
 											key={event.id}
-											className="absolute w-full p-1 md:p-2 rounded-md"
+											className="absolute w-full p-1 md:p-2 z-[50]"
 											style={{
-												backgroundColor:
-													event.backgroundColor || "rgba(220, 0, 0, 0.1)",
+												...stripedPatternStyle,
 												color: event.color,
 												top: style.top,
 												height: style.height,
 												overflow: "hidden",
+												backdropFilter: "blur(0)",
 											}}
 										>
-											<h4 className="font-semibold truncate">
-												{event.summary}
-											</h4>
 											<p className="text-xs truncate">
 												{`${DateUtils.formatTime(new Date(event.start.dateTime))}`}{" "}
-												-{DateUtils.formatTime(new Date(event.end.dateTime))}
+												- {DateUtils.formatTime(new Date(event.end.dateTime))}
 											</p>
 										</div>
 									);

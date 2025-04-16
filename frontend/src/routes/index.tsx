@@ -13,7 +13,6 @@ import assicurazioni from "@/assets/icons/assicurazioni.svg";
 import Calendar from "@/components/Calendar.tsx";
 import ImageGallery from "@/components/ImageGallery.tsx";
 import SwipeCards from "@/components/SwipeCards.tsx";
-import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { useCalendarEvents } from "@/hooks/use-calendar-events.ts";
 
 export const Route = createFileRoute("/")({
@@ -56,7 +55,7 @@ function Index() {
 				description={
 					"Lavoro al tuo fianco per farti risparmiare tempo, semplificare la raccolta di documenti e presentarti i prodotti più convenienti."
 				}
-				email={"gaetano.castiglia@24max.it"}
+				email={"info@mediazionicastiglia.it"}
 				phone={"+39 334 1058956"}
 			/>
 
@@ -162,26 +161,8 @@ function Index() {
 				childrenStyle="md:px-0 w-full overflow-hidden"
 			>
 				{galleryError && <p>Errore: {galleryError?.message}</p>}
-				{isLoadingGallery && (
-					<div className={"flex flex-col items-center pt-8"}>
-						{" "}
-						<Skeleton className={"absolute animate-pulse w-80 h-96"} />
-						<Skeleton
-							className={"absolute rotate-4 animate-pulse w-80 h-96 opacity-60"}
-						/>
-						<Skeleton
-							className={
-								"absolute -rotate-8 animate-pulse w-80 h-96 opacity-40"
-							}
-						/>
-						<Skeleton
-							className={
-								"absolute rotate-10 animate-pulse w-80 h-96 opacity-20"
-							}
-						/>
-					</div>
-				)}
-				{gallery && <SwipeCards gallery={gallery} />}
+
+				<SwipeCards gallery={gallery} isLoading={isLoadingGallery} />
 			</Section>
 		</div>
 	);

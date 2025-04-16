@@ -9,15 +9,12 @@ import {
 } from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 import marker from "@/assets/icons/marker.svg";
+import { useIsMobile } from "@/hooks/use-is-mobile.ts";
 
 export const LeafletMap = () => {
-	const {
-		mapRef,
-		selectedLocation,
-		handleLocationSelect,
-		currentLocation,
-		isMobile,
-	} = useMap();
+	const isMobile = useIsMobile();
+	const { mapRef, selectedLocation, handleLocationSelect, currentLocation } =
+		useMap();
 
 	return (
 		<div className="flex flex-col relative h-[600px]">

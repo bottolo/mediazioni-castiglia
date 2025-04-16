@@ -4,6 +4,16 @@ import { useImages } from "@/hooks/use-images.ts";
 import mail from "@/assets/icons/mail.svg";
 import whatsapp from "@/assets/icons/whatsapp.svg";
 import paperplane from "@/assets/icons/paperplane.svg";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "./ui/dialog";
+import { DialogTrigger } from "@/components/ui/dialog.tsx";
+import { ContactForm } from "@/components/ContactForm.tsx";
+import { useState } from "react";
 
 type HeroProps = {
 	title: string;
@@ -21,6 +31,8 @@ export const Hero = ({
 	email,
 	phone,
 }: HeroProps) => {
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
 	const { data, isLoading, error } = useImages({
 		queryKeys: ["hero"],
 		folder: "Hero",
@@ -33,26 +45,36 @@ export const Hero = ({
 		>
 			<div className="flex flex-col gap-1 pt-0 flex-1 md:w-[50%] px-[1rem] md:px-0 self-start">
 				<div className="hidden md:block">
-					<h1 className="relative font-bold text-gray-700"> {title}</h1>
-					<p className="relative font-[300] subheading pb-4 text-gray-700">
+					<h1 className="relative font-bold text-gray-700 pb-2"> {title}</h1>
+					<p className="relative font-[300] subheading pb-4 text-gray-700 max-w-[400px]">
 						{subtitle}
 					</p>
 				</div>
-				<p className="lg mb-4 md:mb-12 text-gray-800 md:text-gray-600">
+				<p className="lg mb-4 md:mb-12 text-gray-800 md:text-gray-600 max-w-[400px]">
 					{description}
 				</p>
 				<div className={"flex flex-col gap-2"}>
-					<ContactCard
-						cssVarPrefix={"contact"}
-						label={"Vuoi contattarmi?"}
-						value={"Fissiamo un incontro"}
-						icon={paperplane}
-						onClick={async (e) => {
-							e.preventDefault();
-						}}
-						labelColor={"text-stone-400"}
-						textColor={"text-stone-100"}
-					/>
+					<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+						<DialogTrigger className={"text-left cursor-pointer"}>
+							<ContactCard
+								cssVarPrefix={"contact"}
+								label={"Vuoi contattarmi?"}
+								value={"Fissiamo un incontro"}
+								icon={paperplane}
+								labelColor={"text-stone-400"}
+								textColor={"text-stone-100"}
+							/>
+						</DialogTrigger>
+						<DialogContent className={"bg-[#F2F2F2]"}>
+							<DialogHeader>
+								<DialogTitle className={"mb-6"}>Contattami</DialogTitle>
+								<DialogDescription>
+									<ContactForm onSuccess={() => setIsDialogOpen(false)} />
+								</DialogDescription>
+							</DialogHeader>
+						</DialogContent>
+					</Dialog>
+
 					<ContactCard
 						cssVarPrefix={"mail"}
 						label={"Scrivimi una mail"}
@@ -61,7 +83,7 @@ export const Hero = ({
 						onClick={async (e) => {
 							e.preventDefault();
 
-							window.location.href = "mailto:gaetano.castiglia@24max.it";
+							window.location.href = "mailto:info@mediazionicastiglia.it";
 						}}
 					/>
 					<a href={"whatsapp://send?phone=393341058956"}>
@@ -76,7 +98,7 @@ export const Hero = ({
 			</div>
 			<div className="relative flex-1 md:w-[50%]">
 				{isLoading ? (
-					<Skeleton className="md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 h-[300px] md:h-[475px] w-full rounded-none" />
+					<Skeleton className="md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 h-[300px] md:h-[520px] w-full md:rounded-lg" />
 				) : (
 					<img
 						alt="test"
