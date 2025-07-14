@@ -2,11 +2,7 @@ import { Hono } from "hono";
 import { Resend } from "resend";
 import { z } from "zod";
 
-const resend = new Resend(
-	typeof import.meta !== "undefined" && import.meta.env
-		? String(import.meta.env.VITE_RESEND_API_KEY)
-		: String(process.env.RESEND_API_KEY),
-);
+const resend = new Resend(String(process.env.RESEND_API_KEY));
 
 export const resendSchema = z.object({
 	fullName: z.string().min(1, "Full name is required"),
